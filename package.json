@@ -4,7 +4,11 @@
   "description": "Backend utility for Fairshots.org",
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "node app.js",
+    "start:dev": "node app.js NODE_ENV=development",
+    "sql": "./node_modules/sequelize-cli/lib/sequelize",
+    "sql:migrate": "npm run sql db:migrate"
   },
   "repository": {
     "type": "git",
@@ -32,5 +36,10 @@
   },
   "devDependencies": {
     "sequelize-cli": "^4.0.0"
-  }
+  },
+
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 5.8.0"
+  },
 }
