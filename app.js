@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
+require('./src/routes')(app);
+
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Fairshots backend.',
 }));
