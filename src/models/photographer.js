@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     Email: DataTypes.STRING,
     ProfPicture: DataTypes.STRING
   }, {});
-  Photographer.associate = function(models) {
+  Photographer.associate = (models) => {
     // associations can be defined here
   };
   return Photographer;
