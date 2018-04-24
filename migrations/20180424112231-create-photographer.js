@@ -3,19 +3,37 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Photographers', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV1,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        primaryKey: true
       },
       Name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       Email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: { isEmail: true}
+      },
+      webpage: {
         type: Sequelize.STRING
       },
-      ProfPicture: {
+      facebook: {
         type: Sequelize.STRING
+      },
+      instagram: {
+        type: Sequelize.STRING
+      },
+      Skill: {
+        type: Sequelize.ENUM('Student', 'Amateur', 'Professional'),
+        allowNull: false
+      },
+      Biography: {
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

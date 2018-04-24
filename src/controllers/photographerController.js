@@ -6,6 +6,8 @@ module.exports = {
       .create({
         Name: req.body.name,
         Email: req.body.email,
+        Skill: req.body.skill,
+        Biography: req.body.biography,
         ProfPicture: req.body.pictUrl
       })
       .then(photographer => res.status(201).send(photographer))
