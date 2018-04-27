@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   const Photographer = sequelize.define('Photographer', {
     id: {
@@ -12,12 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-
     Email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: { isEmail: true}
+    },
+    Password: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     Skill: {
       type: DataTypes.ENUM('Student', 'Amateur', 'Professional'),
@@ -31,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     facebook: DataTypes.STRING,
     instagram: DataTypes.STRING,
     ProfPicture: DataTypes.STRING
-  }, {});
+  });
   Photographer.associate = (models) => {
     // associations can be defined here
     // Create :
@@ -39,5 +44,24 @@ module.exports = (sequelize, DataTypes) => {
     // country
     // location
   };
+  Photographer.beforeCreate((photographer, options) => {
+    return bcrypt.hash(photographer.Password, 10)
+        .then(hash => {
+            photographer.Password = hash;
+        })
+        .catch(err => {
+            throw new Error();
+        });
+
+  });
+
+  Photographer.prototype.isValidPassword = function (password) {
+
+    bcrypt.compare(password, this.Password).then(function(res) {
+      return res;
+    });
+  }
+
+
   return Photographer;
 };
