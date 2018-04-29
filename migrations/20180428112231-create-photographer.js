@@ -31,6 +31,9 @@ module.exports = {
       instagram: {
         type: Sequelize.STRING
       },
+      ProfilePic: {
+        type: Sequelize.STRING
+      },
       Skill: {
         type: Sequelize.ENUM('Student', 'Amateur', 'Professional'),
         allowNull: false

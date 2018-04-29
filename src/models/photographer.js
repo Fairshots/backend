@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     webpage: DataTypes.STRING,
     facebook: DataTypes.STRING,
     instagram: DataTypes.STRING,
-    ProfPicture: DataTypes.STRING
+    ProfilePic: DataTypes.STRING
   });
   Photographer.associate = (models) => {
     // associations can be defined here
@@ -57,9 +57,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Photographer.prototype.isValidPassword = function (password) {
 
-    bcrypt.compare(password, this.Password).then(function(res) {
-      return res;
-    });
+    return bcrypt.compare(password, this.Password);
+
   }
 
 

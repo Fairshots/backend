@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const Photographer = require('../src/models').Photographer;
 
 const opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
+opts.jwtFromRequest = ExtractJwt.fromHeader('Authorization');
 opts.secretOrKey = 'fairshotssecretkey';
 
 module.exports = {
@@ -24,19 +24,27 @@ module.exports = {
 	    .catch(error => done(error, null));
 	  }),
 
-	  localStrategy: new LocalStrategy((email, password, done) => {
-	    Photographer.findOne({ Email: email }).then(
-	     (err, user) => {
-		      if (err) { return done(err); }
-		      if (!user) {
-		        return done(null, false, { message: 'Incorrect username.' });
-		      }
-		      if (!user.validPassword(password)) {
-		        return done(null, false, { message: 'Incorrect password.' });
-		      }
-		      return done(null, user);
-		 });
-	  })
+	  localStrategy: new LocalStrategy({
+	    usernameField: 'email',
+	    passwordField: 'password'
+		}, (email, password, done) => {
+		    Photographer.findOne({ where: { Email: email }}).then(
+		     (photographer) => {
+		     	  console.log(photographer)
+			      if (!photographer) {
+			        return done(null, false, { message: 'Incorrect username.' });
+			      }
+			      photographer.isValidPassword(password).then(res => {
+
+					  if (res) return done(null, photographer);
+					  else return done(null, false, { message: 'Incorrect password.' });
+			      });
+
+			  });
+
+
+			 }
+	  )
 
 }
 
