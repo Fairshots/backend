@@ -4,9 +4,10 @@
   "description": "Backend utility for Fairshots.org",
   "main": "app.js",
   "scripts": {
-    "test": "npm test",
-    "start": "node app.js",
-    "start:dev": "node app.js NODE_ENV=development",
+    "test": "jest",
+    "lint": "eslint *.js",
+    "start": "node server.js",
+    "start:dev": "node server.js NODE_ENV=development",
     "sql": "./node_modules/sequelize-cli/lib/sequelize",
     "sql:migrate": "npm run sql db:migrate"
   },
@@ -42,8 +43,14 @@
     "sequelize": "^4.37.5"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
     "jest": "^22.4.3",
-    "sequelize-cli": "^4.0.0"
+    "sequelize-cli": "^4.0.0",
+    "superagent": "^3.8.3",
+    "supertest": "^3.0.0"
   },
   "engines": {
     "node": ">= 8.0.0",
