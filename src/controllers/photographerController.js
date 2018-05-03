@@ -22,4 +22,12 @@ module.exports = {
       }
       );
   },
+
+  read(req, res) {
+      let usr = Object.assign({}, req.user.dataValues);
+      delete usr.Password;
+      res.json(usr);
+  }
+
+
 };
