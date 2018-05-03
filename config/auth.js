@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const Photographer = require('../src/models').Photographer;
 
 const opts = {}
-opts.jwtFromRequest = ExtractJwt.fromHeader('Authorization');
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'fairshotssecretkey';
 
 module.exports = {
@@ -13,15 +13,15 @@ module.exports = {
 	  jwtStrategy: new JwtStrategy(opts, (payload, done) => {
 	    Photographer.findById(payload.id)
 	    .then(user => {
-	      if (user) {
-	        return done(null, {
-	          id: user.id,
-	          email: user.email,
-	        });
-	      }
-	      return done(null, false);
+	    	//console.log(user);
+
+	        if (user) {
+	            return done(null, user);
+	        } else {
+	            return done(null, false);
+	        }
 	    })
-	    .catch(error => done(error, null));
+	    .catch(err => done(err, null));
 	  }),
 
 	  localStrategy: new LocalStrategy({
@@ -30,7 +30,7 @@ module.exports = {
 		}, (email, password, done) => {
 		    Photographer.findOne({ where: { Email: email }}).then(
 		     (photographer) => {
-		     	  console.log(photographer)
+		     	  //console.log(photographer)
 			      if (!photographer) {
 			        return done(null, false, { message: 'Incorrect username.' });
 			      }

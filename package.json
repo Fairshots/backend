@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint *.js",
+    "lint": "eslint **/*.js",
+    "coverage": "jest --collectCoverageFrom=**/*.js --collectCoverageFrom=!node_modules --coverage",
     "start": "node server.js",
     "start:dev": "node server.js NODE_ENV=development",
     "sql": "./node_modules/sequelize-cli/lib/sequelize",
