@@ -8,7 +8,7 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-        ssl: true
+      ssl: true
     }
 
   },
@@ -21,7 +21,7 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-        ssl: true
+      ssl: true
     }
 
   },
@@ -30,7 +30,7 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-        ssl: true
+      ssl: true
     }
   }
-}
+};

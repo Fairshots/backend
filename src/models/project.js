@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Project = sequelize.define('Project', {
+  const Project = sequelize.define('Project', {
     Title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -58,9 +58,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
 
-  }, {});
-  Project.associate = function(models) {
-    // associations can be defined here
+  });
+  Project.associate = (models) => {
+    Project.belongsTo(models.Organization);
   };
   return Project;
 };

@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
 
   });
   Organization.associate = (models) => {
-    // associations can be defined here
+    Organization.hasMany(models.Project);
   };
   return Organization;
 };
