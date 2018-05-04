@@ -7,16 +7,16 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - Name
 - E-mail
 - Phone
-- City
-- Country
-- Skill level
+- City --> relationship 1-to-1
+- Country --> relationship 1-to-1 linked with city
+- Skill level --> enumeration
 - Biography
 - Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
 - personal site (optional)
 - facebook  (optional)
 - instagram (optional)
-- language (opt)
-- interest in causes (opt)
+- language (opt) --> relationship 1-to-many
+- interest in causes (opt) --> relationship 1-to-many
 
 3. Organizations will register. Following fields can be stored:
 - Name
@@ -54,9 +54,19 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - Geographic restriction for applications
 - Up to Three specific questions to be asked
 
+-> Modeled by relationship between org and project.
+
 5 - The projects created in 4 will be used to get application from photographers
 
+-> This is modeled by database relationship between photographer and project
+
+
 6 - Fairshots Admin wants to do advanced search queries over data in 2,3,4
+
+-> Admin will have a specific route and his status will be checked in DB by looking for ID of the user and verifying if he has the admin role set. Other admins can only be setup by the administrator.
+
+-> Inside his route Admin will be able to access info and queries only allowed to him.
+
 
 7 - Integration with a Maps API
 
