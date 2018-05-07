@@ -1,81 +1,82 @@
-
+# 1. General info
 Fairshots is a platform that connects photographers and non-profit organizations. It makes it easy for organizations to browse and connect to photographer that are looking for world changing work, both globally and locally.
 
 1. Fairshots Backend serve as API endpoint/controller for the website system.
 
-2. Photographers will register and may store following personal information:
-- Name
-- E-mail
-- Phone
-- City --> relationship 1-to-1
-- Country --> relationship 1-to-1 linked with city
-- Skill level --> enumeration
-- Biography
+# 2. Database Initial Requirements 
+### 2.1 Photographers will register and may store following personal information (marked are already mapped)
+[x] Name
+[x] E-mail
+[x] Phone
+- City 
+- Country --> relationship 1-to-1 
+[x] Skill level --> enumeration
+[x] Biography
 - Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
-- personal site (optional)
-- facebook  (optional)
-- instagram (optional)
+[x] personal site (optional)
+[x] facebook  (optional)
+[x] instagram (optional)
 - language (opt) --> relationship 1-to-many
 - interest in causes (opt) --> relationship 1-to-many
 
-3. Organizations will register. Following fields can be stored:
-- Name
-- If local branch => parent organization (optional)
-- Logo (image)
-- Contact person
-- Position (optional)
-- E-mail
-- Phone
+### 2.2. Organizations will register. Following fields can be stored:
+[x] Name
+[x] If local branch => parent organization (optional)
+[x] Logo (image)
+[x] Contact person
+[x] Position (optional)
+[x] E-mail
+[x] Phone
 - City
 - Country
 - Languages (optional)
 - Primary Cause (optional)
-- Organization Background (optional)
-- Org website
-- Org facebook
-- Funding Partner or Participating NGO
+[x] Organization Background (optional)
+[x] Org website
+[x] Org facebook
+[x] Funding Partner or Participating NGO
 
-4 - Organizations might create projects with following info.
+### 2.3 - Organizations might create projects with following info.
 
-- Title
+[x] Title
 - Primary Cause
-- Description
+[x] Description
 - Reference images
 - Location (city/country)
-- Starting date
-- Duration
-- Photographers needed
-- Application deadline
-- Photographs delivery deadline (optional)
-- Funding options
-- Funds available ($ - optional)
-- Funding details
-- Fairshots funding help option (optional)
-- Geographic restriction for applications
-- Up to Three specific questions to be asked
+[x] Starting date
+[x] Duration
+[x] Photographers needed
+[x] Application deadline
+[x] Photographs delivery deadline (optional)
+[x] Funding options
+[x] Funds available ($ - optional)
+[x] Funding details
+[x] Fairshots funding help option (optional)
+[x] Geographic restriction for applications
+[x] Up to Three specific questions to be asked
 
--> Modeled by relationship between org and project.
-
-5 - The projects created in 4 will be used to get application from photographers
-
--> This is modeled by database relationship between photographer and project
+### 2.4 - The projects created in 4 will be used to get application from photographers
+-> This is modeled by associative entity between photographer and project
 
 
-6 - Fairshots Admin wants to do advanced search queries over data in 2,3,4
+# 3 - API Requirements
+
+### 3.1 Fairshots Admin wants to do advanced search queries over data in database
 
 -> Admin will have a specific route and his status will be checked in DB by looking for ID of the user and verifying if he has the admin role set. Other admins can only be setup by the administrator.
 
 -> Inside his route Admin will be able to access info and queries only allowed to him.
 
+### 3.2 - Integration with a Maps API
 
-7 - Integration with a Maps API
+# 4 Others
 
-8 - Unique Gallery style for individual project
+### 4.1 - Unique Gallery style for individual project
 (think personalized blog / maybe should store microblogs with wordpress themes for this )
 
-9 - donation widget
+### 4.2 - donation widget
 (any crowdfunding platforms? )
 
-10 - FAIRSHOTS SHOP
-(another project by itself.. Maybe phase three)
+# 5 - FAIRSHOTS SHOP
+(another project by itself.. Maybe phase two)
 	Online store for selling fairshots exclusive publications (books and magazines) and raise money for the project pool.
