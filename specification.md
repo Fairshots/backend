@@ -5,58 +5,57 @@ Fairshots is a platform that connects photographers and non-profit organizations
 
 # 2. Database Initial Requirements 
 ### 2.1 Photographers will register and may store following personal information (marked are already mapped)
-[x] Name
-[x] E-mail
-[x] Phone
-- City 
-- Country --> relationship 1-to-1 
-[x] Skill level --> enumeration
-[x] Biography
-- Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
-[x] personal site (optional)
-[x] facebook  (optional)
-[x] instagram (optional)
-- language (opt) --> relationship 1-to-many
-- interest in causes (opt) --> relationship 1-to-many
+- [x] Name
+- [x] E-mail
+- [x] Phone
+- [ ] City 
+- [ ] Country --> relationship 1-to-1 
+- [x] Skill level --> enumeration
+- [x] Biography
+- [ ] Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
+- [x] facebook  (optional)
+- [x] instagram (optional)
+- [ ] language (opt) --> relationship 1-to-many
+- [ ] interest in causes (opt) --> relationship 1-to-many
 
 ### 2.2. Organizations will register. Following fields can be stored:
-[x] Name
-[x] If local branch => parent organization (optional)
-[x] Logo (image)
-[x] Contact person
-[x] Position (optional)
-[x] E-mail
-[x] Phone
-- City
-- Country
-- Languages (optional)
-- Primary Cause (optional)
-[x] Organization Background (optional)
-[x] Org website
-[x] Org facebook
-[x] Funding Partner or Participating NGO
+- [x] Name
+- [x] If local branch => parent organization (optional)
+- [x] Logo (image)
+- [x] Contact person
+- [x] Position (optional)
+- [x] E-mail
+- [x] Phone
+- [ ] City
+- [ ] Country
+- [ ] Languages (optional)
+- [ ] Primary Cause (optional)
+- [x] Organization Background (optional)
+- [x] Org website
+- [x] Org facebook
+- [x] Funding Partner or Participating NGO
 
 ### 2.3 - Organizations might create projects with following info.
 
-[x] Title
-- Primary Cause
-[x] Description
-- Reference images
-- Location (city/country)
-[x] Starting date
-[x] Duration
-[x] Photographers needed
-[x] Application deadline
-[x] Photographs delivery deadline (optional)
-[x] Funding options
-[x] Funds available ($ - optional)
-[x] Funding details
-[x] Fairshots funding help option (optional)
-[x] Geographic restriction for applications
-[x] Up to Three specific questions to be asked
+- [x] Title
+- [ ] Primary Cause
+- [x] Description
+- [ ] Reference images
+- [ ] Location (city/country)
+- [x] Starting date
+- [x] Duration
+- [x] Photographers needed
+- [x] Application deadline
+- [x] Photographs delivery deadline (optional)
+- [x] Funding options
+- [x] Funds available ($ - optional)
+- [x] Funding details
+- [x] Fairshots funding help option (optional)
+- [x] Geographic restriction for applications
+- [x] Up to Three specific questions to be asked
 
 ### 2.4 - The projects created in 4 will be used to get application from photographers
--> This is modeled by associative entity between photographer and project
+- [ ] This is modeled by associative entity between photographer and project
 
 
 # 3 - API Requirements
