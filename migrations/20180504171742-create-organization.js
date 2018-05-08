@@ -48,6 +48,21 @@ module.exports = {
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
+    City: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    Languages: {
+      type:Sequelize.ARRAY(Sequelize.TEXT),
+      allowNull: false
+    },
+    Causes: {
+      type:Sequelize.ARRAY(Sequelize.STRING),
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

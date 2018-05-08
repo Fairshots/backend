@@ -33,12 +33,26 @@ module.exports = {
     ProfilePic: {
       type: Sequelize.STRING
     },
+    Languages: {
+      type:Sequelize.ARRAY(Sequelize.STRING),
+    },
     Skill: {
       type: Sequelize.ENUM('Student', 'Amateur', 'Professional'),
       allowNull: false
     },
     Biography: {
       type: Sequelize.TEXT,
+      allowNull: false
+    },
+    Causes: {
+      type:Sequelize.ARRAY(Sequelize.STRING),
+    },
+    City: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: Sequelize.STRING,
       allowNull: false
     },
     createdAt: {

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     Description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     StartingDate: {
@@ -57,7 +57,18 @@ module.exports = (sequelize, DataTypes) => {
     Question3: {
       type: DataTypes.STRING,
     },
-
+    City: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Cause: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   });
   Project.associate = (models) => {
     Project.belongsTo(models.Organization);

@@ -35,7 +35,21 @@ module.exports = (sequelize, DataTypes) => {
     webpage: DataTypes.STRING,
     facebook: DataTypes.STRING,
     instagram: DataTypes.STRING,
-    ProfilePic: DataTypes.STRING
+    ProfilePic: DataTypes.STRING,
+    Languages: {
+      type:DataTypes.ARRAY(DataTypes.STRING),
+    },
+    Causes: {
+      type:DataTypes.ARRAY(DataTypes.STRING),
+    },
+    City: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   });
   Photographer.associate = (models) => {
     // associations can be defined here

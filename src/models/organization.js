@@ -38,7 +38,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
-
+    City: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Languages: {
+      type:DataTypes.ARRAY(DataTypes.STRING),
+    },
+    Causes: {
+      type:DataTypes.ARRAY(DataTypes.STRING),
+    },
   });
   Organization.associate = (models) => {
     Organization.hasMany(models.Project);

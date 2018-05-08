@@ -12,7 +12,7 @@ module.exports = {
       allowNull: false
     },
     Description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     StartingDate: {
@@ -62,6 +62,18 @@ module.exports = {
     },
     Question3: {
       type: Sequelize.STRING,
+    },
+    Cause: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    City: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    Country: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     createdAt: {
       allowNull: false,
