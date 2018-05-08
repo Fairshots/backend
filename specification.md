@@ -8,15 +8,15 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - [x] Name
 - [x] E-mail
 - [x] Phone
-- [ ] City 
-- [ ] Country --> relationship 1-to-1 
+- [x] City 
+- [x] Country 
 - [x] Skill level --> enumeration
 - [x] Biography
 - [ ] Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
 - [x] facebook  (optional)
 - [x] instagram (optional)
-- [ ] language (opt) --> relationship 1-to-many
-- [ ] interest in causes (opt) --> relationship 1-to-many
+- [x] language (opt) 
+- [x] interest in causes (opt)
 
 ### 2.2. Organizations will register. Following fields can be stored:
 - [x] Name
@@ -26,10 +26,10 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - [x] Position (optional)
 - [x] E-mail
 - [x] Phone
-- [ ] City
-- [ ] Country
-- [ ] Languages (optional)
-- [ ] Primary Cause (optional)
+- [x] City
+- [x] Country
+- [x] Languages (optional)
+- [x] Primary Cause (optional)
 - [x] Organization Background (optional)
 - [x] Org website
 - [x] Org facebook
@@ -38,10 +38,10 @@ Fairshots is a platform that connects photographers and non-profit organizations
 ### 2.3 - Organizations might create projects with following info.
 
 - [x] Title
-- [ ] Primary Cause
+- [x] Primary Cause
 - [x] Description
 - [ ] Reference images
-- [ ] Location (city/country)
+- [x] Location (city/country)
 - [x] Starting date
 - [x] Duration
 - [x] Photographers needed
