@@ -54,17 +54,17 @@ module.exports = (sequelize, DataTypes) => {
   Photographer.associate = (models) => {
     // associations can be defined here
     // Create :
-    // causes
-    // country
-    // location
+    Photographer.hasMany(models.Photos);
+    //Application still to add
   };
+
   Photographer.beforeCreate((photographer, options) => {
     return bcrypt.hash(photographer.Password, 10)
         .then(hash => {
             photographer.Password = hash;
         })
         .catch(err => {
-            throw new Error();
+            throw new Error(err);
         });
 
   });

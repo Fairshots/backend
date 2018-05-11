@@ -12,7 +12,11 @@ module.exports = {
         webpage: req.body.webpage,
         facebook: req.body.facebook,
         instagram: req.body.instagram,
-        ProfilePic: req.body.pictUrl
+        ProfilePic: req.body.pictUrl,
+        Languages: req.body.languages,
+        Causes: req.body.causes,
+        City: req.body.city,
+        Country: req.body.country
       })
       .then(photographer => res.status(201).send(photographer))
       .catch(error => {

@@ -72,6 +72,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Project.associate = (models) => {
     Project.belongsTo(models.Organization);
+    // application still to add
   };
   return Project;
 };

@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Photos.associate = (models) => {
     // associations can be defined here
+    Photos.belongsTo(models.Photographer);
+    Photos.belongsTo(models.Organization);
   };
   return Photos;
 };

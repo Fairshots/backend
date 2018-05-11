@@ -1,4 +1,5 @@
 const photographer = require('../controllers').photographerController;
+const organization = require('../controllers').organizationController;
 const passport = require('passport');
 const auth = require('../../config/auth');
 const login = require('../controllers').loginController;
@@ -23,7 +24,12 @@ module.exports = (app) => {
     .all(passport.authenticate('jwt', {session: false}))
     .get(photographer.read)
 
+  // Signup Route
+  app.post('/api/organization', organization.create);
 
+  app.route('/api/organization/:id')
+    .all(passport.authenticate('jwt', {session: false}))
+    .get(organization.read)
 
 
 
