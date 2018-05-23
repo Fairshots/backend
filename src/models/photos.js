@@ -1,4 +1,5 @@
-'use strict';
+
+
 module.exports = (sequelize, DataTypes) => {
   const Photos = sequelize.define('Photos', {
     cloudlink: DataTypes.STRING

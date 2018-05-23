@@ -1,4 +1,4 @@
-'use strict';
+
 
 const bcrypt = require('bcrypt');
 
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: { isEmail: true}
+      validate: { isEmail: true }
     },
     Password: {
       type: DataTypes.STRING,
@@ -54,10 +54,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     Languages: {
-      type:DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     Causes: {
-      type:DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
   });
   Organization.associate = (models) => {
@@ -65,21 +65,16 @@ module.exports = (sequelize, DataTypes) => {
     Organization.hasMany(models.Photos);
   };
 
-  Organization.beforeCreate((photographer, options) => {
-    return bcrypt.hash(photographer.Password, 10)
-        .then(hash => {
-            photographer.Password = hash;
-        })
-        .catch(err => {
-            throw new Error(err);
-        });
-
-  });
+  Organization.beforeCreate((photographer, options) => bcrypt.hash(photographer.Password, 10)
+    .then(hash => {
+      photographer.Password = hash;
+    })
+    .catch(err => {
+      throw new Error(err);
+    }));
 
   Organization.prototype.isValidPassword = function (password) {
-
     return bcrypt.compare(password, this.Password);
-
-  }
+  };
   return Organization;
 };

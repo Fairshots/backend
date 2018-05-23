@@ -26,15 +26,13 @@ module.exports = {
       .catch(error => {
         console.log(error);
         res.status(500).send(error);
-
-      }
-      );
+      });
   },
 
   read(req, res) {
-      let usr = Object.assign({}, req.user.dataValues);
-      delete usr.Password;
-      res.json(usr);
+    const usr = Object.assign({}, req.user.dataValues);
+    delete usr.Password;
+    res.json(usr);
   }
 
 

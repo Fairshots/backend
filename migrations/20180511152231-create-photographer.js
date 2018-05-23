@@ -34,7 +34,7 @@ module.exports = {
       type: Sequelize.STRING
     },
     Languages: {
-      type:Sequelize.ARRAY(Sequelize.STRING),
+      type: Sequelize.ARRAY(Sequelize.STRING),
     },
     Skill: {
       type: Sequelize.ENUM('Student', 'Amateur', 'Professional'),
@@ -45,7 +45,7 @@ module.exports = {
       allowNull: false
     },
     Causes: {
-      type:Sequelize.ARRAY(Sequelize.STRING),
+      type: Sequelize.ARRAY(Sequelize.STRING),
     },
     City: {
       type: Sequelize.STRING,

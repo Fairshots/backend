@@ -1,4 +1,5 @@
-'use strict';
+
+
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: { isEmail: true}
+      validate: { isEmail: true }
     },
     Password: {
       type: DataTypes.STRING,
@@ -37,10 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     instagram: DataTypes.STRING,
     ProfilePic: DataTypes.STRING,
     Languages: {
-      type:DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     Causes: {
-      type:DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     City: {
       type: DataTypes.STRING,
@@ -55,25 +56,20 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     // Create :
     Photographer.hasMany(models.Photos);
-    //Application still to add
+    // Application still to add
   };
 
-  Photographer.beforeCreate((photographer, options) => {
-    return bcrypt.hash(photographer.Password, 10)
-        .then(hash => {
-            photographer.Password = hash;
-        })
-        .catch(err => {
-            throw new Error(err);
-        });
-
-  });
+  Photographer.beforeCreate((photographer, options) => bcrypt.hash(photographer.Password, 10)
+    .then(hash => {
+      photographer.Password = hash;
+    })
+    .catch(err => {
+      throw new Error(err);
+    }));
 
   Photographer.prototype.isValidPassword = function (password) {
-
     return bcrypt.compare(password, this.Password);
-
-  }
+  };
 
 
   return Photographer;

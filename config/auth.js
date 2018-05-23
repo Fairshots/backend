@@ -1,5 +1,5 @@
-const JwtStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 
 const Photographer = require('../src/models').Photographer;
@@ -36,7 +36,6 @@ module.exports = {
 	  	 } else {
 	  	 	return done(null, false);
 	  	 }
-
 	  }),
 
 	  localStrategy: new LocalStrategy({
@@ -64,8 +63,6 @@ module.exports = {
 					  if (res) return done(null, photographer);
 					  return done(null, false, { message: 'Incorrect password.' });
 			      });
-
-
 		    });
 	  })
 

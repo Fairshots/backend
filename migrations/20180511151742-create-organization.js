@@ -61,11 +61,11 @@ module.exports = {
       allowNull: false
     },
     Languages: {
-      type:Sequelize.ARRAY(Sequelize.TEXT),
+      type: Sequelize.ARRAY(Sequelize.TEXT),
       allowNull: false
     },
     Causes: {
-      type:Sequelize.ARRAY(Sequelize.STRING),
+      type: Sequelize.ARRAY(Sequelize.STRING),
     },
     createdAt: {
       allowNull: false,
