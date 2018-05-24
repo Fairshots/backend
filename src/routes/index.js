@@ -6,7 +6,12 @@ const login = require('../controllers').loginController;
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
-
+/**
+ * This mdule routes user requests to controllers according to http verbs and URLs requested
+ *
+ * @param {*} app is required to run the request listeners
+ * @param CRUD http requests by users to be handled in each route
+ */
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Fairshots API!',
