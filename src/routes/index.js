@@ -12,21 +12,24 @@ module.exports = (app) => {
     message: 'Welcome to the Fairshots API!',
   }));
 
-  // Signup Route
+  // Signup Routes
   app.post('/api/photographer', photographer.create);
+  app.post('/api/organization', organization.create);
 
-  // Login route to get token
+  // Login route to get JWT token
   app.post('/login', passport.authenticate('local', { session: false }), login);
 
   // photographer profile route with jwt check
   app.route('/api/photographer/:id')
     .all(passport.authenticate('jwt', { session: false }))
-    .get(photographer.read);
+    .get(photographer.read)
+    .put(photographer.update)
+    .delete(photographer.delete);
 
-  // Signup Route
-  app.post('/api/organization', organization.create);
 
   app.route('/api/organization/:id')
     .all(passport.authenticate('jwt', { session: false }))
-    .get(organization.read);
+    .get(organization.read)
+    .put(organization.update)
+    .delete(organization.delete);
 };
