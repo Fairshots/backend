@@ -56,7 +56,7 @@ module.exports = {
   },
 
   delete(req, res) {
-    return Photographer.delete().then(photographer =>
+    return Photographer.destroy().then(photographer =>
       res.json({ msg: 'user deleted from database successfully' }));
   }
 
