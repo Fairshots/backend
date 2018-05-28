@@ -48,14 +48,15 @@ module.exports = {
 			      if (!photographer) {
 				    Organization.findOne({ where: { Email: email } }).then((organization) => {
 				     	  // console.log(photographer)
+				     	  if (!organization) {
+					        return done(null, false, { message: 'Incorrect username.' });
+					      }
 					      organization.isValidPassword(password).then(res => {
 							  if (res) return done(null, organization);
 							  return done(null, false, { message: 'Incorrect password.' });
 					      });
 
-					      if (!organization) {
-					        return done(null, false, { message: 'Incorrect username.' });
-					      }
+
 				    });
 			      }
 
