@@ -24,7 +24,7 @@ module.exports = (req, res) => {
   );
   console.log(token);
   res.json({
-    message: 'Signed In.',
+    message: 'Logged In.',
     userId: req.user.id,
     token
   });

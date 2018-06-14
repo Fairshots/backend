@@ -54,9 +54,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Photographer.associate = (models) => {
     // associations can be defined here
-    // Create :
-    Photographer.hasMany(models.Photos);
-    // Application still to add
+    Photographer.hasMany(models.Photos, {foreignKey: 'photographerId'});
+
   };
 
   Photographer.beforeCreate((photographer, options) => bcrypt.hash(photographer.Password, 10)

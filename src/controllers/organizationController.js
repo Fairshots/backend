@@ -34,6 +34,7 @@ module.exports = {
     res.json(usr);
   },
   update(req, res) {
+    console.log(req.body);
     return Organization
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
       .then(result => res.status(201).send(result))

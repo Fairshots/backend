@@ -2,6 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Project = sequelize.define('Project', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     Title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -72,8 +78,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Project.associate = (models) => {
-    Project.belongsTo(models.Organization);
-    // application still to add
+    Project.belongsTo(models.Organization, { foreignKey: 'organizationId', onDelete: 'CASCADE' });
+
   };
   return Project;
 };

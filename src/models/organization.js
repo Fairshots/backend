@@ -61,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Organization.associate = (models) => {
-    Organization.hasMany(models.Project);
-    Organization.hasMany(models.Photos);
+    Organization.hasMany(models.Project, {foreignKey: 'organizationId'});
+    Organization.hasMany(models.Photos, {foreignKey: 'organizationId'});
   };
 
   Organization.beforeCreate((photographer, options) => bcrypt.hash(photographer.Password, 10)

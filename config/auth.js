@@ -3,7 +3,9 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 
 const Photographer = require('../src/models').Photographer;
+const Photos = require('../src/models').Photos;
 const Organization = require('../src/models').Organization;
+const Project = require('../src/models').Project;
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -13,7 +15,13 @@ module.exports = {
 	  opts,
 	  jwtStrategy: new JwtStrategy(opts, (payload, done) => {
 	  	 if (payload.usertype == 'photographer') {
-		    Photographer.findById(payload.id)
+		    Photographer.findById(payload.id,
+		    {
+			  include: [{
+			    model: Photos,
+			    attributes: [ 'id', 'cloudlink' ]
+			  }]
+			})
 		    .then(user => {
 		    	// console.log(user);
 
@@ -24,7 +32,17 @@ module.exports = {
 		    })
 		    .catch(err => done(err, null));
 	  	 } else if (payload.usertype == 'organization') {
-		    Organization.findById(payload.id)
+		    Organization.findById(payload.id,
+		    {
+			  include: [{
+			    model: Photos,
+			    attributes: [ 'id', 'cloudlink' ]
+			  },
+			  {
+			  	model: Project,
+			  	attributes: [ 'id', 'Title']
+			  }]
+			})
 		    .then(user => {
 		    	// console.log(user);
 		        if (user) {

@@ -1,5 +1,7 @@
 const photographer = require('../controllers').photographerController;
 const organization = require('../controllers').organizationController;
+const photos = require('../controllers').photosController;
+const project = require('../controllers').projectController;
 const passport = require('passport');
 const auth = require('../../config/auth');
 const login = require('../controllers').loginController;
@@ -37,4 +39,22 @@ module.exports = (app) => {
     .get(organization.read)
     .put(organization.update)
     .delete(organization.delete);
+
+//photos routes
+  app.route(['/api/photographer/:id/photos', '/api/organization/:id/photos'])
+    .all(passport.authenticate('jwt', { session: false }))
+    .post(photos.bulkCreate)
+    .delete(photos.delete);
+
+//projects routes
+  app.post('/api/project', passport.authenticate('jwt', { session: false }), project.create);
+  app.route('/api/project/:id')
+    .all(passport.authenticate('jwt', { session: false }))
+    .get(project.read)
+    .put(project.update)
+    .delete(project.delete);
 };
+
+
+
+
