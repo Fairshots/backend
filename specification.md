@@ -12,7 +12,7 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - [x] Country 
 - [x] Skill level --> enumeration
 - [x] Biography
-- [ ] Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
+- [x] Portfolio Images (up to 10) ==> images will go to CDN / links to image will be stored on DB
 - [x] facebook  (optional)
 - [x] instagram (optional)
 - [x] language (opt) 
@@ -40,7 +40,7 @@ Fairshots is a platform that connects photographers and non-profit organizations
 - [x] Title
 - [x] Primary Cause
 - [x] Description
-- [ ] Reference images
+- [x] Reference images - through Org images
 - [x] Location (city/country)
 - [x] Starting date
 - [x] Duration
