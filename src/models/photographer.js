@@ -55,6 +55,11 @@ module.exports = (sequelize, DataTypes) => {
   Photographer.associate = (models) => {
     // associations can be defined here
     Photographer.hasMany(models.Photos, {foreignKey: 'photographerId'});
+    Photographer.belongsToMany(models.Project,
+    {through: {
+      model: models.Application,
+      unique: false
+    }, foreignKey: 'photographerId', otherKey: 'projectId'});
 
   };
 

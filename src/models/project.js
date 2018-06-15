@@ -79,6 +79,11 @@ module.exports = (sequelize, DataTypes) => {
   });
   Project.associate = (models) => {
     Project.belongsTo(models.Organization, { foreignKey: 'organizationId', onDelete: 'CASCADE' });
+    Project.belongsToMany(models.Photographer,
+    {through: {
+      model: models.Application,
+      unique: false
+    }, foreignKey: 'projectId', otherKey: 'photographerId'});
 
   };
   return Project;

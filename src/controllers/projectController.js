@@ -1,5 +1,6 @@
 const Project = require('../models').Project;
 const Organization = require('../models').Organization;
+const Photographer = require('../models').Photographer;
 
 module.exports = {
   create(req, res) {
@@ -41,7 +42,15 @@ module.exports = {
 	  include: [{
 	    model: Organization,
 	    attributes: [ 'Name' ]
-	  }]
+	  },
+	  {
+	    model: Photographer,
+	    attributes: [ 'id', 'Name'  ],
+	    through: {
+	       attributes: [ 'answer1', 'answer2', 'answer3', 'selected' ]
+	    }
+	  },
+	  ]
 	})
 	.then(project => res.status(201).send(project))
     .catch(error => {
@@ -61,7 +70,26 @@ module.exports = {
   delete(req, res) {
     return Project.destroy({ where: { id: req.params.id } }).then(project =>
       res.json({ msg: 'Project deleted from database successfully' }));
+  },
+  applyTo(req, res) {
+    return Photographer.findById(req.body.photographerId).then(photographer =>
+        Project.findById(req.params.id).then(
+          project => project.addPhotographer( photographer, { through: {
+              answer1: req.body.answer1,
+              answer2: req.body.answer2,
+              answer3: req.body.answer3
+            }
+          })
+        )
+    )
+    .then(result => res.status(201).send(result))
+      .catch(error => {
+        console.log(error);
+        res.status(500).send(error);
+      });
+
   }
+
 
 
 };

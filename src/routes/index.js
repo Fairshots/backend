@@ -52,7 +52,8 @@ module.exports = (app) => {
     .all(passport.authenticate('jwt', { session: false }))
     .get(project.read)
     .put(project.update)
-    .delete(project.delete);
+    .delete(project.delete)
+    .post(project.applyTo) //route for photographer application
 };
 
 
