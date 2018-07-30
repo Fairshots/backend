@@ -9,7 +9,8 @@ module.exports = {
     },
     Name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: { isAlphanumeric: true }
     },
     Email: {
       type: Sequelize.STRING,

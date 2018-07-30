@@ -9,7 +9,7 @@ const auth = require('../../config/auth');
  * @param {*} res is response sent containing JWT token. This token must inform user type ( photographer or organization)
  */
 module.exports = (req, res) => {
-  console.log(req.user);
+  //console.log(req.user);
   const token = jwt.sign(
     {
       id: req.user.id,
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
       expiresIn: '1h'
     }
   );
-  console.log(token);
+
   res.json({
     message: 'Logged In.',
     userId: req.user.id,

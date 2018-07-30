@@ -12,8 +12,9 @@ module.exports = (sequelize, DataTypes) => {
 
     },
     Name: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING,  // need some validation to disallow blank space string
+      allowNull: false,
+      validate: { isAlphanumeric: true }
     },
     Email: {
       type: DataTypes.STRING,

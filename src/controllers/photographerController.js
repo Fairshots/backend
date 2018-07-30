@@ -35,7 +35,7 @@ module.exports = {
   update(req, res) {
     return Photographer
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
-      .then(photographer => res.status(201).send(photographer))
+      .then(result => res.status(201).send(result))
       .catch(error => {
         console.log(error);
         res.status(500).send(error);
