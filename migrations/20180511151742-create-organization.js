@@ -10,6 +10,7 @@ module.exports = {
     Name: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate: { notEmpty: true }
     },
     Parent: {
       type: Sequelize.STRING

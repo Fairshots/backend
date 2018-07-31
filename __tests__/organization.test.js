@@ -4,10 +4,9 @@ const app = require('../app');
 describe('Test the Login API', () => {
   let token;
   let id;
-  let photos;
   beforeAll((done) => {
     request(app).post('/login')
-    .send({ email: 'teste11@teste11.com', password: 'teste11' }) //ensure user is registered before this test
+    .send({ email: 'org1@org1.com', password: 'org1' }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       id = res.body.userId;
@@ -16,8 +15,8 @@ describe('Test the Login API', () => {
     });
   });
 
-  test('photographer obtained from server ', (done) => {
-    request(app).get(`/api/photographer/${id}`)
+  test('organization obtained from server ', (done) => {
+    request(app).get(`/api/organization/${id}`)
     .set('Authorization', `bearer ${token}`)
     .then((res) => {
       expect(res.statusCode).toBe(200);
@@ -26,8 +25,8 @@ describe('Test the Login API', () => {
     });
   });
 
-  test('photographer not obtained from server if wrong token', (done) => {
-    request(app).get(`/api/photographer/${id}`)
+  test('organization not obtained from server if wrong token', (done) => {
+    request(app).get(`/api/organization/${id}`)
     .set('Authorization', `bearer 000`)
     .then((res) => {
       expect(res.statusCode).toBe(401);
@@ -36,8 +35,8 @@ describe('Test the Login API', () => {
     });
   });
 
-  test('photographer updates ok', (done) => {
-    request(app).put(`/api/photographer/${id}`)
+  test('organization updates ok', (done) => {
+    request(app).put(`/api/organization/${id}`)
     .set('Authorization', `bearer ${token}`)
     .send({
       Biography: "testing if it can be updated"
@@ -48,7 +47,7 @@ describe('Test the Login API', () => {
       done();
     });
 
-    request(app).put(`/api/photographer/${id}`)
+    request(app).put(`/api/organization/${id}`)
       .set('Authorization', `bearer ${token}`)
       .send({
         Biography: "kkkkk"
@@ -61,7 +60,7 @@ describe('Test the Login API', () => {
   });
 
   test('dont update to invalid or keep blank required fields', (done) => {
-    request(app).put(`/api/photographer/${id}`)
+    request(app).put(`/api/organization/${id}`)
     .set('Authorization', `bearer ${token}`)
     .send({
       Email: "test"
@@ -72,7 +71,7 @@ describe('Test the Login API', () => {
       expect(res.body.name).toMatch("SequelizeValidationError");
     });
 
-    request(app).put(`/api/photographer/${id}`)
+    request(app).put(`/api/organization/${id}`)
     .set('Authorization', `bearer ${token}`)
     .send({
       Name: ""
@@ -84,20 +83,19 @@ describe('Test the Login API', () => {
     });
   });
 
-  test('create new user', (done) => {
-    request(app).post(`/api/photographer`)
+  test('create new org', (done) => {
+    request(app).post(`/api/organization`)
     .send({
-      name: "xis",
-      email: "teste22@teste22.com",
-      password: "teste22",
-      skill: "Professional",
-      biography: "kkkkk",
-      webpage: "kk",
-      facebook: "kk",
-      instagram: "kk",
-      pictUrl: "http://teste.com",
+      name: "test org",
+      email: "org4@org4.com", //change if duplicate error
+      password: "org4", //change if duplicate error
+      logo: "html://xxx",
+      person: "kkkkk",
+      website: "html://xxx",
+      funding: true,
       city: "Belo Horizonte",
-      country: "Brazil"
+      country: "Brazil",
+      languages: ["english", "portuguese"]
     })
     .set('Content-Type', 'application/json')
     .then((res) => {
@@ -105,13 +103,12 @@ describe('Test the Login API', () => {
       done();
     });
   });
-
    describe('delete created user', () => {
     let id2;
     let token2;
     beforeAll((done) => {
       request(app).post('/login')
-      .send({ email: 'teste22@teste22.com', password: 'teste22' })
+      .send({ email: 'org4@org4.com', password: 'org4' }) //change if duplicate error
       .set('Content-Type', 'application/json')
       .then((res) => {
         id2 = res.body.userId;
@@ -125,7 +122,7 @@ describe('Test the Login API', () => {
 
     test( "del", (done) => {
       jest.setTimeout(30000);
-      request(app).delete(`/api/photographer/${id2}`)
+      request(app).delete(`/api/organization/${id2}`)
       .set('Authorization', `bearer ${token2}`)
       .set('Content-Type', 'application/json')
       .then((res) => {
@@ -134,19 +131,18 @@ describe('Test the Login API', () => {
       });
     });
 
-  });
-
+   });
   test('add new photos links', (done) => {
-    request(app).post(`/api/photographer/${id}/photos`)
+    request(app).post(`/api/organization/${id}/photos`)
     .set('Authorization', `bearer ${token}`)
     .send({
       photos: [
       {
-        photographerId: id,
+        organizationId: id,
         cloudlink: "html://teste1"
       },
       {
-        photographerId: id,
+        organizationId: id,
         cloudlink: "html://teste2"
       },
       ]
@@ -163,7 +159,7 @@ describe('Test the Login API', () => {
   test( "del photos", (done) => {
     jest.setTimeout(30000);
 
-    request(app).delete(`/api/photographer/${id}/photos`)
+    request(app).delete(`/api/organization/${id}/photos`)
     .set('Authorization', `bearer ${token}`)
     .send({
       photoIds: photos.map(i => i.id)
@@ -175,7 +171,6 @@ describe('Test the Login API', () => {
       done();
     });
   });
-
 
 
 });

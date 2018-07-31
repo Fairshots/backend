@@ -10,7 +10,7 @@ module.exports = {
     Name: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: { isAlphanumeric: true }
+      validate: { notEmpty: true }
     },
     Email: {
       type: Sequelize.STRING,

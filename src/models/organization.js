@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     Name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: { notEmpty: true }
     },
     Parent: DataTypes.STRING,
     Logo: {
@@ -55,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     Languages: {
       type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
     },
     Causes: {
       type: DataTypes.ARRAY(DataTypes.STRING),

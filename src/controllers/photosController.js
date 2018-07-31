@@ -2,9 +2,8 @@ const Photos = require('../models').Photos;
 
 module.exports = {
   bulkCreate(req, res) {
-
     return Photos
-      .bulkCreate(req.body.photos)
+      .bulkCreate(req.body.photos, {returning: true})
       .then(photos => res.status(201).send(photos))
       .catch(error => res.status(400).send(error));
   },

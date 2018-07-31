@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     Name: {
       type: DataTypes.STRING,  // need some validation to disallow blank space string
       allowNull: false,
-      validate: { isAlphanumeric: true }
+      validate: { notEmpty: true }
     },
     Email: {
       type: DataTypes.STRING,
