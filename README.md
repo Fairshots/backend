@@ -337,6 +337,157 @@ Returning:
     id: [ID]
     organizationId: [ID],
     cloudlink:[URL]
- }]```
+ }]
+ ```
  
- 
+ **/api/project/**    
+```javascript
+{
+        title: [string],
+        description: [string],
+        startingDate: [date],
+        duration: [integer],
+        applicationDate: : [date],
+        deliveryDate: [date],
+        fundingOptions: ['No Funds' | 'Expenses' | 'Photographer'],
+        fundsAvailable: [string],
+        fundsDetails: [string],
+        fundsFairshot: [boolean],
+        photographersNeeded: [integer],
+        professionalOnly: [boolean],
+        geographicRestriction: ['Anywhere'|'Continent'|'Country'|'Region'],
+        question1: [string],
+        question2: [string],
+	      question3: [string],
+	      city: [string],
+	      country: [string],
+        cause: [string],
+        organizationId: [ID]
+}
+```
+Success:  
+Code 201 - created  
+content: object  
+Returning:  
+```javascript
+{ 
+  project
+} 
+````
+Failure:  
+Code 500 - Internal Server Error  
+```javascript
+{ 
+  error object
+} 
+````
+
+**/api/project/:id*  
+**GET**  
+```javascript
+
+Authentication: 'bearer token'
+````
+Success:  
+Code 200 - created  
+content: object  
+Returning:  
+```javascript
+{
+        Title,
+        Description,
+        StartingDate,
+        Duration,
+        ApplicationDate,
+        Delivery,
+        FundingOptions,
+        FundsAvailable,
+        FundsDetails,
+        FundsFairshot,
+        PhotographersNeeded,
+        ProfessionalOnly,
+        GeographicRestriction,
+        Question1,
+        Question2,
+	      Question3,
+	      City,
+	      Country,
+        Cause,
+        organizationId,
+        createdAt,
+        updatedAt
+}
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+
+**PUT**
+```javascript
+
+Authentication: 'bearer token'
+
+{
+  key: value // to be updated one or more
+}
+// Attention: Key name here must be equal to DB column names (most of the column names are capitalized). 
+````
+Success:  
+Code 200 - OK  
+content: object  
+Returning:  
+```javascript
+[ x ]  // number of itens updated
+
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+Code 500 - Server Error  
+Possible Causes: invalid values, wrong key names  
+
+**DELETE**  
+Authentication: 'bearer token'  
+
+Success:  
+Code 200 - OK  
+content: object  
+Returning:  
+```javascript
+{
+  msg: "Project deleted from database successfully" // to be updated one or more
+}
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+Code 500 - Server Error  
+Possible Causes: invalid values, wrong key names  
+
+
+**POST**  
+```javascript
+
+Authentication: 'bearer token'
+
+{
+  photographerId: [Id],
+  answer1: [string],
+  answer2: [string],
+  answer3: [string] 
+}
+// Attention: Key name here must be equal to DB column names (most of the column names are capitalized). 
+````
+
+Success:  
+Code 201 - created  
+content: object  
+Returning:  
+```javascript
+[ application result ]
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+Code 500 - Server Error  
+Possible Causes: invalid values, wrong key names  
