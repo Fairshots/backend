@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     {through: {
       model: models.Application,
       unique: false
-    }, foreignKey: 'photographerId', otherKey: 'projectId'});
+    }, foreignKey: 'photographerId', otherKey: 'projectId', onDelete: 'CASCADE'});
 
   };
 

@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     selected: DataTypes.BOOLEAN
   }, {});
   Application.associate = function(models) {
-    // associations can be defined here
+    Application.belongsTo(models.Photographer, { foreignKey: 'photographerId', onDelete: 'CASCADE', hooks: true });
+    Application.belongsTo(models.Project, { foreignKey: 'projectId', onDelete: 'CASCADE', hooks: true });
   };
   return Application;
 };

@@ -12,7 +12,6 @@ module.exports = {
         Duration: req.body.duration,
         ApplicationDate: req.body.applicationDate,
         Delivery: req.body.deliveryDate,
-        Password: req.body.password,
         FundingOptions: req.body.fundingOptions,
         FundsAvailable: req.body.fundsAvailable,
         FundsDetails: req.body.fundsDetails,
@@ -22,11 +21,11 @@ module.exports = {
         GeographicRestriction: req.body.geographicRestriction,
         Question1: req.body.question1,
         Question2: req.body.question2,
-	    Question3: req.body.question3,
-	    City: req.body.city,
-	    Country: req.body.country,
-      Cause: req.body.cause,
-      organizationId: req.body.organizationId
+	      Question3: req.body.question3,
+	      City: req.body.city,
+	      Country: req.body.country,
+        Cause: req.body.cause,
+        organizationId: req.body.organizationId
       })
       .then(project => res.status(201).send(project))
       .catch(error => {

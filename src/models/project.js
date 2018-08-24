@@ -83,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
     {through: {
       model: models.Application,
       unique: false
-    }, foreignKey: 'projectId', otherKey: 'photographerId'});
+    }, foreignKey: 'projectId', onDelete: 'CASCADE', hooks: true, otherKey: 'photographerId', onDelete: 'CASCADE', hooks: true});
 
   };
   return Project;

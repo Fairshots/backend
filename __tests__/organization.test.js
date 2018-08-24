@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('Test the Login API', () => {
+describe('Test the Organizations API', () => {
   let token;
   let id;
   beforeAll((done) => {

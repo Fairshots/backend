@@ -5,6 +5,7 @@ module.exports = {
 
       projectId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: 'Projects',
           key: 'id',
@@ -13,6 +14,7 @@ module.exports = {
       },
       photographerId: {
         type: Sequelize.UUID,
+        onDelete: 'CASCADE',
         references: {
           model: 'Photographers',
           key: 'id',
