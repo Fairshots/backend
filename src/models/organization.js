@@ -67,9 +67,9 @@ module.exports = (sequelize, DataTypes) => {
     Organization.hasMany(models.Photos, {foreignKey: 'organizationId'});
   };
 
-  Organization.beforeCreate((photographer, options) => bcrypt.hash(photographer.Password, 10)
+  Organization.beforeCreate((organization, options) => bcrypt.hash(organization.Password, 10)
     .then(hash => {
-      photographer.Password = hash;
+      organization.Password = hash;
     })
     .catch(err => {
       throw new Error(err);
