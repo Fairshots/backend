@@ -197,14 +197,14 @@ Returning:
   _parent: [string],
   logo: [URL],
   email: [email],  //required
-  person: [string],
+  person: [string], //required
   position: [string],
   password: [string],
   phone: [phone]
   background: [text], //required
-  website: [URL],
+  website: [URL], //required
   facebook: [URL],
-  funding: [boolean],
+  funding: [boolean], //required
   languages: [string array] ,
   causes: [string array] ,
   city: [string] , //required
