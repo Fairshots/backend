@@ -22,7 +22,7 @@ module.exports = (req, res) => {
       expiresIn: '1h'
     }
   );
-
+  console.log(token);
   res.json({
     message: 'Logged In.',
     userId: req.user.id,
