@@ -5,19 +5,19 @@ module.exports = {
   create(req, res) {
     return Photographer
       .create({
-        Name: req.body.name,
-        Email: req.body.email,
-        Password: req.body.password,
-        Skill: req.body.skill,
-        Biography: req.body.biography,
+        Name: req.body.Name,
+        Email: req.body.Email,
+        Password: req.body.Password,
+        Skill: req.body.Skill,
+        Biography: req.body.Biography,
         webpage: req.body.webpage,
         facebook: req.body.facebook,
         instagram: req.body.instagram,
-        ProfilePic: req.body.pictUrl,
-        Languages: req.body.languages,
-        Causes: req.body.causes,
-        City: req.body.city,
-        Country: req.body.country
+        ProfilePic: req.body.ProfilePic,
+        Languages: req.body.Languages,
+        Causes: req.body.Causes,
+        City: req.body.City,
+        Country: req.body.Country
       })
       .then(result => res.status(201).send(result))
       .catch(error => {
@@ -34,7 +34,7 @@ module.exports = {
 
   update(req, res) {
     return Photographer
-      .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
+      .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body), individualHooks: true })
       .then(result => res.status(201).send(result))
       .catch(error => {
         console.log(error);

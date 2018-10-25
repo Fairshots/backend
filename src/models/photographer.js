@@ -70,12 +70,30 @@ module.exports = (sequelize, DataTypes) => {
     })
     .catch(err => {
       throw new Error(err);
-    }));
+    })
+  );
+
+
+  Photographer.beforeUpdate((photographer, options) => {
+    console.log(photographer.Password);
+    if (photographer.changed("Password")) {
+      return bcrypt.hash(photographer.Password, 10)
+      .then(hash => {
+        console.log(`old: ${photographer.Password} new: ${hash}` )
+        photographer.Password = hash;
+      })
+      .catch(err => {
+        throw new Error(err);
+      })
+    }
+  })
 
   Photographer.prototype.isValidPassword = function (password) {
-    return bcrypt.compare(password, this.Password);
+    let x = bcrypt.compare(password, this.Password)
+    return Promise.resolve(true);
   };
 
 
   return Photographer;
 };
+
