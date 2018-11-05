@@ -8,7 +8,7 @@ module.exports = {
         Parent: req.body._parent,
         Logo: req.body.Logo,
         Email: req.body.Email,
-        ContactPerson: req.body.Person,
+        ContactPerson: req.body.ContactPerson,
         Position: req.body.Position,
         Password: req.body.Password,
         Phone: req.body.Phone,
@@ -36,7 +36,7 @@ module.exports = {
   update(req, res) {
     console.log(req.body);
     return Organization
-      .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
+      .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body), individualHooks: true  })
       .then(result => res.status(201).send(result))
       .catch(error => {
         console.log(error);

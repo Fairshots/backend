@@ -89,8 +89,7 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   Photographer.prototype.isValidPassword = function (password) {
-    let x = bcrypt.compare(password, this.Password)
-    return Promise.resolve(true);
+    return bcrypt.compare(password, this.Password);
   };
 
 

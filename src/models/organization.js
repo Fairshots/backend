@@ -75,6 +75,20 @@ module.exports = (sequelize, DataTypes) => {
       throw new Error(err);
     }));
 
+  Organization.beforeUpdate((organization, options) => {
+    console.log(organization.Password);
+    if (organization.changed("Password")) {
+      return bcrypt.hash(organization.Password, 10)
+      .then(hash => {
+        console.log(`old: ${organization.Password} new: ${hash}` )
+        organization.Password = hash;
+      })
+      .catch(err => {
+        throw new Error(err);
+      })
+    }
+  });
+
   Organization.prototype.isValidPassword = function (password) {
     return bcrypt.compare(password, this.Password);
   };

@@ -26,6 +26,7 @@ module.exports = (req, res) => {
   res.json({
     message: 'Logged In.',
     userId: req.user.id,
+    userName: req.user.Name,
     userType: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization',
     token
   });
