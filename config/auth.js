@@ -10,6 +10,8 @@ const Project = require('../src/models').Project;
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'fairshotssecretkey';
+opts.CL_apikey = 287439769955984;
+opts.CL_apisecret = 'jgKHG3aehgqSnS_FQziXBbOpjys';
 
 module.exports = {
 	  opts,
