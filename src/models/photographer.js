@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    accountInactive: {
+      type: DataTypes.BOOLEAN
+    }
   });
   Photographer.associate = (models) => {
     // associations can be defined here

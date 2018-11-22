@@ -33,6 +33,8 @@ module.exports = {
   },
 
   update(req, res) {
+    if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
+
     return Photographer
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body), individualHooks: true })
       .then(result => res.status(201).send(result))
@@ -43,8 +45,14 @@ module.exports = {
   },
 
   delete(req, res) {
-    return Photographer.destroy({ where: {id: req.params.id } }).then(result =>
-      res.json({ msg: 'user deleted from database successfully' }));
+    if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
+    return Photographer.update(req.body.accountInactive, { where: {id: req.params.id }, fields: ['accountInactive'], individualHooks: true })
+    .then(result =>
+      res.json({ msg: 'your account is now inactive and will not show in community list until you activate it again' }))
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+     });
   }
 
 
