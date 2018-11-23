@@ -47,8 +47,11 @@ module.exports = {
   delete(req, res) {
     if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
     return Photographer.update(req.body, { where: {id: req.params.id }, fields: ['accountInactive'], individualHooks: true })
-    .then(result =>
-      res.json({ msg: 'your account is now inactive and will not show in community list until you activate it again' }))
+    .then(result => {
+      if (req.body.accountInactive) res.json({ msg: 'your account is now inactive and will not show in community list until you activate it again' });
+      else res.json({ msg: 'your account is reactivated! Welcome back!' });
+
+    })
     .catch(error => {
       console.log(error);
       res.status(500).send(error);
