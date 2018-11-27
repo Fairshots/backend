@@ -2,6 +2,7 @@ const photographer = require('../controllers').photographerController;
 const organization = require('../controllers').organizationController;
 const photos = require('../controllers').photosController;
 const project = require('../controllers').projectController;
+const featured = require('../controllers').featuredController;
 const passport = require('passport');
 const auth = require('../../config/auth');
 const login = require('../controllers').loginController;
@@ -25,6 +26,12 @@ module.exports = (app) => {
 
   // Login route to get JWT token
   app.post('/login', passport.authenticate('local', { session: false }), login);
+
+  // open access routes to feed general page
+  app.get('/api/featured', featured.compile)
+  app.get('/api/photographer/all', photographer.getAll)
+  app.get('/api/organization/all', organization.getAll)
+
 
   // photographer profile route with jwt check
   app.route('/api/photographer/:id')

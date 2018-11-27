@@ -32,6 +32,12 @@ module.exports = {
     res.json(usr);
   },
 
+  getAll(req, res) {
+    return Photographer
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ]})
+    .then(list => res.json(list));
+  },
+
   update(req, res) {
     if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
 
