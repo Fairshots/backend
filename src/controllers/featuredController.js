@@ -8,7 +8,12 @@ module.exports = {
 	compile(req, res) {
 		let offset = 0;
 		let compilation = {};
-		Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ], limit: 3, offset})
+		Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ],
+		  include: [{
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		  }],
+		limit: 3, offset})
     .then(photList => Object.assign(compilation, {photographers: photList}))
     .then(Obj => Organization.findAll({ attributes: ['id', 'Name', 'Background', 'Causes', 'Logo', 'Country' ], limit: 3, offset})
                  .then(orgList => Object.assign(compilation, {organizations: orgList}))
