@@ -1,6 +1,18 @@
-# backend
+# Fairshots Backend
 
-## API Instructions
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
+</p>
+
+<br>
+
+To view Frontend Repo please go to [https://github.com/Fairshots/Fairshots.org](https://github.com/Fairshots/Fairshots.org)
+
+## Stack: 
+Node | Express | PostgreSQL | Sequelize | Passport.Js
+
+
+## API Documentation
 
 | Title  | URL  | Method  | Params  |
 |---|---|---|---|
