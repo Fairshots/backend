@@ -1,4 +1,4 @@
-# Fairshots Backend
+# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) 
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
