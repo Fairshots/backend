@@ -8,7 +8,7 @@ module.exports = {
 	compile(req, res) {
 		let offset = 0;
 		let compilation = {};
-		Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ],
+		Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country' ],
 		  include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'cloudlink' ]

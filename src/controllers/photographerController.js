@@ -1,5 +1,5 @@
 const Photographer = require('../models').Photographer;
-
+const Photos = require('../models').Photos;
 
 module.exports = {
   create(req, res) {
@@ -34,7 +34,12 @@ module.exports = {
 
   getAll(req, res) {
     return Photographer
-    .findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
+      include: [{
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		  }],
+    })
     .then(list => res.json(list));
   },
 
