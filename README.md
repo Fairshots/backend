@@ -1,6 +1,23 @@
-# backend
+# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) 
 
-## API Instructions
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
+</p>
+
+<br>
+
+To view Frontend Repo please go to [https://github.com/Fairshots/Fairshots.org](https://github.com/Fairshots/Fairshots.org)
+
+## Stack: 
+Node | Express | PostgreSQL | Sequelize | Passport.Js
+
+## Roadmap for Backend 
+[Link](https://github.com/Fairshots/backend/blob/master/roadmap.md)
+
+## How to contribute
+[Please follow these steps to contribute](https://github.com/Fairshots/backend/blob/master/CONTRIBUTING.md)
+
+## API Documentation
 
 | Title  | URL  | Method  | Params  |
 |---|---|---|---|
