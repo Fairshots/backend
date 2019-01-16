@@ -23,11 +23,13 @@ Node | Express | PostgreSQL | Sequelize | Passport.Js
 |---|---|---|---|
 | login  | /login  | POST  |   |
 | register new photographer  | /api/photographer  | POST  |  |
+|  get basic info of all photographers | /api/photographer/all | GET  |    |
 |  read photographer | /api/photographer/:id | GET  | Header Authorization: 'bearer token'   |
 |  update photographer info  | /api/photographer/:id   |  PUT | Header Authorization: 'bearer token'   |
 | delete photographer account  | /api/photographer/:id   | DELETE  | Header Authorization: 'bearer token'   |
 | insert links of photos | /api/photographer/:id/photos  |  POST | Header Authorization: 'bearer token'   |
 |  register new organization | /api/organization  | POST  |   | 
+|  get basic info of all orgs | /api/organization/all | GET  |    |
 | read organization  |  /api/organization/:id | GET  | Header Authorization: 'bearer token'   |
 |  update organization |  /api/organization/:id | PUT  | Header Authorization: 'bearer token'   |
 | delete organization  | /api/organization/:id  | DELETE  |  Header Authorization: 'bearer token'  |
@@ -41,7 +43,8 @@ Node | Express | PostgreSQL | Sequelize | Passport.Js
 All requests params may be sent as x-www-form-urlencoded or JSON in request body.  
 
 
-**/login**  (req body only)
+**/login**  (req body only)  
+**POST**  
 ```javascript
 {
   email: [string],
@@ -63,6 +66,7 @@ Failure:
 Code 401 - Unauthorized  
 
 **/api/photographer**  
+**POST**  
 ```javascript
 {
   name: [string],   //required
@@ -97,6 +101,37 @@ Code 500 - Internal Server Error
 } 
 ````
 
+**/api/photographer/all*  
+**GET**  
+
+Success:  
+Code 200 - created  
+content: object  
+Returning:  
+```javascript
+[{
+  Id: [string]
+  Name: [string],   //required
+  Skill: ['Student' | 'Amateur' | 'Professional'] , //required
+  Biography: [text], //required
+  ProfilePicture: [string],
+  Languages: [string array] ,
+  Causes: [string array] ,
+  City: [string] , //required
+  Country: [string], //required 
+  createdAt: [date],
+  Photos: {} ,
+  Project Applications: {} 
+}, ...] 
+````
+Possible Failure:  
+Code 500 - Server Error  
+```javascript
+{ 
+  error object
+} 
+```` 
+
 **/api/photographer/:id*  
 **GET**  
 ```javascript
@@ -104,7 +139,7 @@ Code 500 - Internal Server Error
 Authentication: 'bearer token'
 ````
 Success:  
-Code 200 - created  
+Code 200 - OK  
 content: object  
 Returning:  
 ```javascript
@@ -176,7 +211,7 @@ Possible Causes: invalid values, wrong key names
 
 
 **/api/photographer/:id/photos**  
-
+**POST** 
 ```javascript
 {
   photos:[{
@@ -207,7 +242,8 @@ Returning:
  ```
  
 
-**/api/organization**
+**/api/organization**  
+**POST** 
 ```javascript
 {
   name: [string],   //required
@@ -246,6 +282,35 @@ Code 500 - Internal Server Error
   error object
 } 
 ````
+**/api/organization/all**  
+**GET**  
+
+
+Success:  
+Code 200 - ok  
+content: object  
+Returning:  
+```javascript
+{
+  Name: [string],   //required
+  Parent: [string],
+  Logo: [URL],
+  Background: [text], //required
+  website: [URL],
+  facebook: [URL],
+  Causes: [string array] ,
+  City: [string] , //required
+  Country: [string], //required 
+  Projects: {}
+}
+````
+Failure:  
+Code 500 - Internal Server Error  
+```javascript
+{ 
+  error object
+} 
+````
 
 **/api/organization/:id**  
 **GET**  
@@ -254,7 +319,7 @@ Code 500 - Internal Server Error
 Authentication: 'bearer token'
 ````
 Success:  
-Code 200 - created  
+Code 200 - OK  
 content: object  
 Returning:  
 ```javascript
@@ -327,7 +392,7 @@ Possible Causes: invalid values, wrong key names
 
 
 **/api/organization/:id/photos**  
-
+**POST** 
 ```javascript
 {
   photos:[{
@@ -357,7 +422,8 @@ Returning:
  }]
  ```
  
- **/api/project/**    
+ **/api/project/**  
+ **POST** 
 ```javascript
 {
         title: [string],
