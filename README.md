@@ -22,6 +22,7 @@ Node | Express | PostgreSQL | Sequelize | Passport.Js
 | Title  | URL  | Method  | Params  |
 |---|---|---|---|
 | login  | /login  | POST  |   |
+|  get featured three photographers and three orgs  | /api/featured | GET  |    |
 | register new photographer  | /api/photographer  | POST  |  |
 |  get basic info of all photographers | /api/photographer/all | GET  |    |
 |  read photographer | /api/photographer/:id | GET  | Header Authorization: 'bearer token'   |
@@ -64,6 +65,56 @@ Returning:
 ````
 Failure:  
 Code 401 - Unauthorized  
+
+
+
+**/api/featured/  
+**GET**  
+
+Success:  
+Code 200 - created  
+content: object  
+Returning:  
+```javascript
+{
+	Photographers: [{
+	  Id: [string]
+	  Name: [string],   //required
+	  Skill: ['Student' | 'Amateur' | 'Professional'] , //required
+	  Biography: [text], //required
+	  ProfilePicture: [string],
+	  Languages: [string array] ,
+	  Causes: [string array] ,
+	  City: [string] , //required
+	  Country: [string], //required 
+	  createdAt: [date],
+	  Photos: {} ,
+	  Project Applications: {} 
+	}, ...] ,
+
+      Organizations:[
+	{
+	  Name: [string],   //required
+	  Parent: [string],
+	  Logo: [URL],
+	  Background: [text], //required
+	  website: [URL],
+	  facebook: [URL],
+	  Causes: [string array] ,
+	  City: [string] , //required
+	  Country: [string], //required 
+	  Projects: {}
+	}, ...]
+}
+````
+Possible Failure:  
+Code 500 - Server Error  
+```javascript
+{ 
+  error object
+} 
+```` 
+
 
 **/api/photographer**  
 **POST**  
