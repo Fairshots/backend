@@ -10,8 +10,6 @@ app.use(cors({
     allowedHeaders: ["X-Requested-With", "Content-Type", "Authorization", "Accept"],
 }));
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
