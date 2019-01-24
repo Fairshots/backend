@@ -1,5 +1,5 @@
 const Photographer = require('../models').Photographer;
-const Photos = require('../models').Photos;
+
 
 module.exports = {
   create(req, res) {
