@@ -26,7 +26,7 @@ describe('Test the Login API', () => {
 
   test('login route works for both organization and photographer ', (done) => {
     request(app).post('/login')
-    .send({ email: 'org1@org1.com', password: 'org1' }) //ensure user is registered before this test
+    .send({ email: 'orgx@orgx.com', password: 'orgxorgx' }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       expect(res.statusCode).toBe(200);

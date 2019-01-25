@@ -1,5 +1,5 @@
 const Photographer = require('../models').Photographer;
-const Photos = require('../models').Photos;
+
 
 module.exports = {
   create(req, res) {
@@ -21,7 +21,6 @@ module.exports = {
       })
       .then(result => res.status(201).send(result))
       .catch(error => {
-        console.log(error);
         res.status(500).send(error);
       });
   },
@@ -50,7 +49,6 @@ module.exports = {
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body), individualHooks: true })
       .then(result => res.status(201).send(result))
       .catch(error => {
-        console.log(error);
         res.status(500).send(error);
       });
   },
@@ -64,7 +62,6 @@ module.exports = {
 
     })
     .catch(error => {
-      console.log(error);
       res.status(500).send(error);
      });
   }
