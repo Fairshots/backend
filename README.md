@@ -1,5 +1,7 @@
-# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) 
+# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) &middot; [![CircleCI](https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg)](https://circleci.com/gh/Fairshots/backend)
 
+
+https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg
 <p align="center">
   <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
 </p>
