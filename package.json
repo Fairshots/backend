@@ -59,5 +59,9 @@
   "engines": {
     "node": ">= 8.0.0",
     "npm": ">= 5.8.0"
+  },
+  "jest": {
+    "verbose": false,
+    "testURL": "http://localhost/"
   }
 }

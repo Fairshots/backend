@@ -84,56 +84,32 @@ describe('Test the photographer API', () => {
     });
   });
 
-  test('create new user', (done) => {
-    request(app).post(`/api/photographer`)
-    .send({
-      name: "xis",
-      email: "teste22@teste22.com",
-      password: "teste22",
-      skill: "Professional",
-      biography: "kkkkk",
-      webpage: "kk",
-      facebook: "kk",
-      instagram: "kk",
-      pictUrl: "http://teste.com",
-      city: "Belo Horizonte",
-      country: "Brazil"
-    })
+  test( "del", (done) => {
+    jest.setTimeout(30000);
+    request(app).delete(`/api/photographer/${id}`)
+    .set('Authorization', `bearer ${token}`)
     .set('Content-Type', 'application/json')
+    .send({
+      AccountInactive: true
+    })
     .then((res) => {
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(200);
       done();
     });
   });
 
-   describe('delete created user', () => {
-    let id2;
-    let token2;
-    beforeAll((done) => {
-      request(app).post('/login')
-      .send({ email: 'teste22@teste22.com', password: 'teste22' })
-      .set('Content-Type', 'application/json')
-      .then((res) => {
-        id2 = res.body.userId;
-        token2 = res.body.token;
-        done();
-      });
-
-
+  test( "del", (done) => {
+    jest.setTimeout(30000);
+    request(app).delete(`/api/photographer/${id}`)
+    .set('Authorization', `bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .send({
+      AccountInactive: false
+    })
+    .then((res) => {
+      expect(res.statusCode).toBe(200);
+      done();
     });
-
-
-    test( "del", (done) => {
-      jest.setTimeout(30000);
-      request(app).delete(`/api/photographer/${id2}`)
-      .set('Authorization', `bearer ${token2}`)
-      .set('Content-Type', 'application/json')
-      .then((res) => {
-        expect(res.statusCode).toBe(200);
-        done();
-      });
-    });
-
   });
 
   test('add new photos links', (done) => {
@@ -166,12 +142,12 @@ describe('Test the photographer API', () => {
     request(app).delete(`/api/photographer/${id}/photos`)
     .set('Authorization', `bearer ${token}`)
     .send({
-      photoIds: photos.map(i => i.id)
+      photoIds: [ photos[0].id ]
     })
     .set('Content-Type', 'application/json')
 
     .then((res) => {
-      expect(res.body.msg).toMatch('2 photos deleted from database successfully')
+      expect(res.body.msg).toMatch('1 photo deleted from database successfully')
       done();
     });
   });

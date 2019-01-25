@@ -4,15 +4,18 @@ const app = require('../app');
 describe('Test the Organizations API', () => {
   let token;
   let id;
+  let photos;
   beforeAll((done) => {
     request(app).post('/login')
-    .send({ email: 'org1@org1.com', password: 'org1' }) //ensure user is registered before this test
+    .send({ email: 'orgx@orgx.com', password: 'orgxorgx' }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       id = res.body.userId;
       token = res.body.token;
       done();
     });
+
+
   });
 
   test('organization obtained from server ', (done) => {
@@ -83,55 +86,34 @@ describe('Test the Organizations API', () => {
     });
   });
 
-  test('create new org', (done) => {
-    request(app).post(`/api/organization`)
-    .send({
-      name: "test org",
-      email: "org4@org4.com", //change if duplicate error
-      password: "org4", //change if duplicate error
-      logo: "html://xxx",
-      person: "kkkkk",
-      website: "html://xxx",
-      funding: true,
-      city: "Belo Horizonte",
-      country: "Brazil",
-      languages: ["english", "portuguese"]
-    })
-    .set('Content-Type', 'application/json')
-    .then((res) => {
-      expect(res.statusCode).toBe(201);
-      done();
-    });
-  });
-   describe('delete created user', () => {
-    let id2;
-    let token2;
-    beforeAll((done) => {
-      request(app).post('/login')
-      .send({ email: 'org4@org4.com', password: 'org4' }) //change if duplicate error
-      .set('Content-Type', 'application/json')
-      .then((res) => {
-        id2 = res.body.userId;
-        token2 = res.body.token;
-        done();
-      });
-
-
-    });
-
-
-    test( "del", (done) => {
+  test( "del", (done) => {
       jest.setTimeout(30000);
-      request(app).delete(`/api/organization/${id2}`)
-      .set('Authorization', `bearer ${token2}`)
+      request(app).delete(`/api/organization/${id}`)
+      .set('Authorization', `bearer ${token}`)
       .set('Content-Type', 'application/json')
+      .send({
+        AccountInactive: true
+      })
       .then((res) => {
         expect(res.statusCode).toBe(200);
         done();
       });
     });
 
-   });
+    test( "del", (done) => {
+      jest.setTimeout(30000);
+      request(app).delete(`/api/organization/${id}`)
+      .set('Authorization', `bearer ${token}`)
+      .set('Content-Type', 'application/json')
+      .send({
+        AccountInactive: false
+      })
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+        done();
+      });
+    });
+
   test('add new photos links', (done) => {
     request(app).post(`/api/organization/${id}/photos`)
     .set('Authorization', `bearer ${token}`)
@@ -162,12 +144,12 @@ describe('Test the Organizations API', () => {
     request(app).delete(`/api/organization/${id}/photos`)
     .set('Authorization', `bearer ${token}`)
     .send({
-      photoIds: photos.map(i => i.id)
+      photoIds: [ photos[0].id ]
     })
     .set('Content-Type', 'application/json')
 
     .then((res) => {
-      expect(res.body.msg).toMatch('2 photos deleted from database successfully')
+      expect(res.body.msg).toMatch('1 photo deleted from database successfully')
       done();
     });
   });

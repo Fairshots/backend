@@ -13,7 +13,7 @@ describe('Test the Project API', () => {
      });
 
     request(app).post('/login')
-    .send({ email: 'org1@org1.com', password: 'org1' }) //ensure user is registered before this test
+    .send({ email: 'orgx@orgx.com', password: 'orgxorgx' }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       id2 = res.body.userId;
