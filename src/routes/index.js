@@ -6,6 +6,7 @@ const featured = require('../controllers').featuredController;
 const passport = require('passport');
 const auth = require('../../config/auth');
 const login = require('../controllers').loginController;
+const mailerService = require('../utilities/mailerService');
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
@@ -61,6 +62,18 @@ module.exports = (app) => {
     .put(project.update)
     .delete(project.delete)
     .post(project.applyTo) //route for photographer application
+
+  app.post('/api/mail', (req, res) => {
+    console.log(process.env.SENDGRID_USERNAME)
+    mailerService({
+      from: 'noreply@fairshots.org',
+      to: req.body.email,
+      subject: 'hello world',
+      text: 'Testing mail functionality'
+    }).then((info) => res.send(info))
+    .catch((err) => res.status(400).send(err))
+  })
+
 };
 
 
