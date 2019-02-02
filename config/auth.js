@@ -84,7 +84,7 @@ module.exports = {
 					  if (res) return done(null, photographer);
 					  return done(null, false, { message: 'Incorrect password.' });
 			      });
-		    });
+		    }).catch(err => console.log("Not a photographer"));
 	  })
 
 };

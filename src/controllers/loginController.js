@@ -54,15 +54,19 @@ module.exports = {
       if (!photographer) {
         Organization.findOne({ where: { Email: req.body.Email } }).then((organization) => {
 
-          mailerService.passwordForgotMail(organization, 'Organization', req.headers.host)
+          mailerService.passwordForgotMail(organization, 'Organization', req.headers.host || 'fairshots.org')
             .then((info) => res.send(info))
             .catch((err) => res.status(400).send(err));
 
 
-	      }).catch(err => res.status(400).send("User not found"));
+	      }).catch(err => {
+	        console.log(err);
+	        res.status(400).send("User not found")
+
+	      });
       }
 		     	  // console.log(photographer)
-      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.host)
+      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.host || 'fairshots.org')
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
