@@ -5,7 +5,8 @@ const project = require('../controllers').projectController;
 const featured = require('../controllers').featuredController;
 const passport = require('passport');
 const auth = require('../../config/auth');
-const login = require('../controllers').loginController;
+const loginController = require('../controllers').loginController;
+const mailerService = require('../utilities/mailerService');
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
@@ -25,7 +26,10 @@ module.exports = (app) => {
   app.post('/api/organization', organization.create);
 
   // Login route to get JWT token
-  app.post('/login', passport.authenticate('local', { session: false }), login);
+  app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
+  app.post('/login/forgot', loginController.passwordForgot);
+  app.post('/login/pwreset/:token', loginController.passwordReset)
+
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
@@ -61,6 +65,18 @@ module.exports = (app) => {
     .put(project.update)
     .delete(project.delete)
     .post(project.applyTo) //route for photographer application
+
+  app.post('/api/mail', (req, res) => {
+    mailerService({
+      from: 'Fairshots.org <noreply@fairshots.org>',
+      to: req.body.email,
+      subject: req.body.subject,
+      text: req.body.message
+    }).then((info) => res.send(info))
+    .catch((err) => res.status(400).send(err))
+  })
+
+
 };
 
 

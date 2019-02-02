@@ -62,16 +62,18 @@ Fairshots is a platform that connects photographers and non-profit organizations
 
 ### 3.1 Fairshots Admin wants to do advanced search queries over data in database
 
--> Admin will have a specific route and his status will be checked in DB by looking for ID of the user and verifying if he has the admin role set. Other admins can only be setup by the administrator.
+- [ ] Admin will have a specific route and his status will be checked in DB by looking for ID of the user and verifying if he has the admin role set. Other admins can only be setup by the administrator.
 
--> Inside his route Admin will be able to access info and queries only allowed to him.
+- [ ] Inside his route Admin will be able to access info and queries only allowed to him.
 
 ### 3.2 - Integration with a Maps API
+- [ ] Backend will supply an array of people per country to be mapped on the API on the Frontend
 
 # 4 Others
 
 ### 4.1 - Unique Gallery style for individual project
 (think personalized blog / maybe should store microblogs with wordpress themes for this )
+  
 
 ### 4.2 - donation widget
 (any crowdfunding platforms? )

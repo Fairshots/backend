@@ -11,11 +11,18 @@ module.exports = {
 
     delete(req, res) {
       Photos.findById(req.body.photoIds[0]).then( photo => {
-        cloudinary.delPhoto(photo.cloudlink).then(ok => {
-              Photos.destroy({ where: {id: req.body.photoIds } }).then(result =>
-              res.json({ msg: `${result} photos deleted from database successfully` }));
-        })
-        .catch(error => res.status(500).send(error));
+        if (photo.cloudlink.includes("cloudinary")) {
+          cloudinary.delPhoto(photo.cloudlink).then(ok => {
+                Photos.destroy({ where: {id: req.body.photoIds } }).then(result =>
+                res.json({ msg: `${result} photo deleted from database successfully` }));
+          })
+          .catch(error => res.status(500).send(error));
+        } else {
+          Photos.destroy({ where: {id: req.body.photoIds } }).then(result =>
+                res.json({ msg: `${result} photo deleted from database successfully` }))
+          .catch(error => res.status(500).send(error));
+
+        }
       });
 
   }

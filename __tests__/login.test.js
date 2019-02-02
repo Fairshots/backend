@@ -26,7 +26,7 @@ describe('Test the Login API', () => {
 
   test('login route works for both organization and photographer ', (done) => {
     request(app).post('/login')
-    .send({ email: 'org1@org1.com', password: 'org1' }) //ensure user is registered before this test
+    .send({ email: 'orgx@orgx.com', password: 'orgxorgx' }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       expect(res.statusCode).toBe(200);
@@ -34,4 +34,38 @@ describe('Test the Login API', () => {
       done();
     });
   });
+
+  test('forgot route ', (done) => {
+    request(app).post('/login/forgot')
+    .send({ Email: 'teste11@teste11.com'}) //ensure user is registered before this test
+    .set('Content-Type', 'application/json')
+    .then((res) => {
+      expect(res.statusCode).toBe(200);
+      expect(res.body.accepted).toBeDefined();
+      done();
+    });
+  });
+
+  test('forgot route user not found if wrong email ', (done) => {
+    request(app).post('/login/forgot')
+    .send({ Email: 'orgxxxxxx@orgx.com'}) //ensure user is registered before this test
+    .set('Content-Type', 'application/json')
+    .then((res) => {
+      expect(res.statusCode).toBe(400);
+      expect(res.error.text).toMatch('User not found');
+      done();
+    });
+  });
+
+  test('pw reset route shouldnt work with invalid token ', (done) => {
+    request(app).post('/login/pwreset/13512sdjklasjdklasjd.jrqweqj.1412jçkjfasdas')
+    .send({ Password:'fredmercury'}) //ensure user is registered before this test
+    .set('Content-Type', 'application/json')
+    .then((res) => {
+      expect(res.statusCode).toBe(401);
+      expect(res.error.text).toMatch('Invalid Token');
+      done();
+    });
+  });
+
 });

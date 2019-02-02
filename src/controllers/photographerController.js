@@ -21,7 +21,6 @@ module.exports = {
       })
       .then(result => res.status(201).send(result))
       .catch(error => {
-        console.log(error);
         res.status(500).send(error);
       });
   },
@@ -34,7 +33,12 @@ module.exports = {
 
   getAll(req, res) {
     return Photographer
-    .findAll({ attributes: ['id', 'Name', 'Skill', 'ProfilePic', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
+      include: [{
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		  }],
+    })
     .then(list => res.json(list));
   },
 
@@ -45,7 +49,6 @@ module.exports = {
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body), individualHooks: true })
       .then(result => res.status(201).send(result))
       .catch(error => {
-        console.log(error);
         res.status(500).send(error);
       });
   },
@@ -59,7 +62,6 @@ module.exports = {
 
     })
     .catch(error => {
-      console.log(error);
       res.status(500).send(error);
      });
   }

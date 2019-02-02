@@ -1,16 +1,14 @@
-const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
+
 const app = express();
 
 app.use(cors({
-    allowedHeaders: ["X-Requested-With", "Content-Type", "Authorization", "Accept"],
+  allowedHeaders: ['X-Requested-With', 'Content-Type', 'Authorization', 'Accept'],
 }));
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
