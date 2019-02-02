@@ -55,8 +55,7 @@ module.exports = {
         Organization.findOne({ where: { Email: req.body.Email } }).then((organization) => {
 
           mailerService.passwordForgotMail(organization, 'Organization', req.headers.host || 'fairshots.org')
-            .then((info) => res.send(info))
-            .catch((err) => res.status(400).send(err));
+            .then((info) => res.send(info));
 
 
 	      }).catch(err => {
@@ -70,7 +69,7 @@ module.exports = {
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
-    }).catch(err => console.log('not a photographer'));
+    }).catch(err => {console.log('not a photographer')});
   },
 
   /** Manages to update user password if in user account
