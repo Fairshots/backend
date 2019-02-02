@@ -37,7 +37,7 @@ describe('Test the Login API', () => {
 
   test('forgot route ', (done) => {
     request(app).post('/login/forgot')
-    .send({ Email: 'orgx@orgx.com'}) //ensure user is registered before this test
+    .send({ Email: 'teste11@teste11.com'}) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
       expect(res.statusCode).toBe(200);
