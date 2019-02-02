@@ -78,11 +78,10 @@ module.exports = (sequelize, DataTypes) => {
 
 
   Photographer.beforeUpdate((photographer, options) => {
-    console.log(photographer.Password);
     if (photographer.changed("Password")) {
       return bcrypt.hash(photographer.Password, 10)
       .then(hash => {
-        console.log(`old: ${photographer.Password} new: ${hash}` )
+        console.log(`hash: ${hash}` )
         photographer.Password = hash;
       })
       .catch(err => {

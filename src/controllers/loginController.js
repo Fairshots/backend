@@ -4,14 +4,19 @@ const Photographer = require('../models').Photographer;
 const Organization = require('../models').Organization;
 const mailerService = require('../utilities/mailerService');
 
+const User = {Photographer, Organization};
 /**
- * This module is a middleware responsible for generating JWT token after user
+ * This module is a middleware responsible for managing all requests related to login
+ */
+
+module.exports = {
+
+/** Generates JWT token after user
  *  is authenticated by passport.  either photographer or organization.
  * @
  * @param {*} req contains authenticated user object provided by previous callback
  * @param {*} res is response sent containing JWT token. This token must inform user type ( photographer or organization)
  */
-module.exports = {
   login(req, res) {
   //console.log(req.user);
     const token = jwt.sign(
@@ -38,43 +43,63 @@ module.exports = {
     });
   },
 
-  passwordRecovery(req, res) {
+/** Sends the user an e-mail with the link to password reset if user account is found in DB
+ * @
+ * @param {*} req contains user e-mail
+ * @param {*} res contains info if e-mail was successfully sent
+ */
+  passwordForgot(req, res) {
     Photographer.findOne({ where: { Email: req.body.Email } }).then((photographer) => {
 
       if (!photographer) {
         Organization.findOne({ where: { Email: req.body.Email } }).then((organization) => {
-     	  // console.log(photographer)
+
+          mailerService.passwordForgotMail(organization, 'Organization', req.headers.host)
+            .then((info) => res.send(info))
+            .catch((err) => res.status(400).send(err));
 
 
-	      }).catch(err => res.send("User not found"));
-
-
+	      }).catch(err => res.status(400).send("User not found"));
       }
 		     	  // console.log(photographer)
-      const token = jwt.sign(
-        {
-          id: photographer.id,
-          email: photographer.email,
-          usertype: 'photographer'
-        },
-        auth.opts.secretOrKey,
-        {
-          issuer: photographer.id.toString(),
-          expiresIn: '1h'
-        }
-      );
+      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.host)
+        .then((info) => res.send(info))
+        .catch((err) => res.status(400).send(err));
 
-      mailerService({
-        from: 'noreply@fairshots.org',
-        to: photographer.Email,
-        subject: 'Fairshots Password Recovery',
-        text: `You are receiving this because it have been requested a password recovery for your account. \n\n` +
-        `Please click on the following link to complete the process. The link is valid for one hour:\n\n` +
-        `http://node-lvcunha.c9users.io:8080/api/reset/${token}`
-      }).then((info) => res.send(info))
-      .catch((err) => res.status(400).send(err));
+    }).catch(err => console.log('not a photographer'));
+  },
+
+  /** Manages to update user password if in user account
+ * @
+ * @param {*} req contains user e-mail
+ * @param {*} res contains info if e-mail was successfully sent
+ */
+  passwordReset(req, res) {
+
+    jwt.verify(req.params.token, auth.opts.secretOrKey, (err, decoded) => {
+      if (err) {
+        res.status(401).send("Invalid Token");
+        return;
+      }
+      if (!req.body.Password) {
+        res.status(400).send("Missing data");
+        return;
+      }
+
+      console.log(decoded);
+
+      User[decoded.usertype]
+        .update(req.body, { where: { id:decoded.id }, fields: ['Password'], individualHooks: true })
+        .then(result => res.status(201).send("Password was successfully reset"))
+        .catch(error => {
+          res.status(500).send(error);
+      });
+
 
     });
+
+
+
   },
 
 };

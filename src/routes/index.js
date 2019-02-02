@@ -27,6 +27,9 @@ module.exports = (app) => {
 
   // Login route to get JWT token
   app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
+  app.post('/login/forgot', loginController.passwordForgot);
+  app.post('/login/pwreset/:token', loginController.passwordReset)
+
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
@@ -64,17 +67,15 @@ module.exports = (app) => {
     .post(project.applyTo) //route for photographer application
 
   app.post('/api/mail', (req, res) => {
-    console.log(process.env.SENDGRID_USERNAME)
     mailerService({
-      from: 'noreply@fairshots.org',
+      from: 'Fairshots.org <noreply@fairshots.org>',
       to: req.body.email,
-      subject: 'hello world',
-      text: 'Testing mail functionality'
+      subject: req.body.subject,
+      text: req.body.message
     }).then((info) => res.send(info))
     .catch((err) => res.status(400).send(err))
   })
 
-  app.post('/api/forgot', loginController.passwordRecovery);
 
 };
 

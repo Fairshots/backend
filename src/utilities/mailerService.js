@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+const auth = require('../../config/auth');
 
 
 /**
@@ -10,7 +12,9 @@ const nodemailer = require('nodemailer');
 * text: "Hello world?", // plain text body
 * html: "<b>Hello world?</b>" // html body
 */
-module.exports = (mailOptions) => {
+module.exports = {
+
+  mailer: (mailOptions) => {
 	let transporter = nodemailer.createTransport({
 		service: 'SendGrid',
 		auth: {
@@ -20,6 +24,32 @@ module.exports = (mailOptions) => {
 	});
 
 	return transporter.sendMail(mailOptions);
+  },
 
+  passwordForgotMail: (user, type, host) => {
+  	 const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          usertype: type
+        },
+        auth.opts.secretOrKey,
+        {
+          issuer: user.id.toString(),
+          expiresIn: '1h'
+        }
+      );
+
+      return module.exports.mailer({
+        from: 'Fairshots.org <noreply@fairshots.org>',
+        to: user.Email,
+        subject: 'Fairshots Password Recovery',
+        text: `You are receiving this because it has been requested a password recovery for your account. \n\n` +
+        `Please click on the following link to complete the process. The link is valid for one hour:\n\n` +
+        `${host}/login/pwreset/${token}`
+      });
+
+
+  }
 }
 
