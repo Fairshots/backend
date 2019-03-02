@@ -46,7 +46,7 @@ module.exports = {
         subject: 'Fairshots Password Recovery',
         text: `You are receiving this because it has been requested a password recovery for your account. \n\n` +
         `Please click on the following link to complete the process. The link is valid for one hour:\n\n` +
-        `${host}/login/pwreset/${token}`
+        `${host}/login/pwreset/${token.replace(/\./g,"&")}`
       });
 
 
