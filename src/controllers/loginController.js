@@ -59,12 +59,13 @@ module.exports = {
 
 	      }).catch(err => {
 	        console.log(err);
-	        res.status(400).send("User not found")
+	        res.status(400).send("User not found");
 
 	      });
       }
-		     	  // console.log(photographer)
-      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.host || 'fairshots.org')
+      //console.log(req.headers)
+
+      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.origin || 'fairshots.org')
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
@@ -92,7 +93,7 @@ module.exports = {
 
       User[decoded.usertype]
         .update(req.body, { where: { id:decoded.id }, fields: ['Password'], individualHooks: true })
-        .then(result => res.status(201).send("Password was successfully reset"))
+        .then(result => res.json({msg: "Password was successfully reset"}))
         .catch(error => {
           res.status(500).send(error);
       });
