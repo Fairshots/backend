@@ -52,7 +52,7 @@ module.exports = (app) => {
     .delete(organization.delete);
 
 //photos routes
-  app.route(['/api/photographer/:id/photos', '/api/organization/:id/photos'])
+  app.route(['/api/photographer/:id/photos', '/api/organization/:id/photos', '/api/project/:id/photos'])
     .all(passport.authenticate('jwt', { session: false }))
     .post(photos.bulkCreate)
     .delete(photos.delete);
