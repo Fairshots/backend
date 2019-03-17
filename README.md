@@ -1,5 +1,7 @@
-# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) 
+# Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) &middot; [![CircleCI](https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg)](https://circleci.com/gh/Fairshots/backend)
 
+
+https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg
 <p align="center">
   <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
 </p>
@@ -13,6 +15,13 @@ Node | Express | PostgreSQL | Sequelize | Passport.Js
 
 ## Roadmap for Backend 
 [Link](https://github.com/Fairshots/backend/blob/master/roadmap.md)
+
+
+## Repository Branches 
+
+Development - contains experimental code under test - (PULL REQUESTS MUST BE DONE HERE).   
+Master - contains the code deployed to production server  
+others - developer or temporary branches  
 
 ## How to contribute
 [Please follow these steps to contribute](https://github.com/Fairshots/backend/blob/master/CONTRIBUTING.md)
