@@ -42,7 +42,8 @@ describe('Test the Project API', () => {
 	      city: 'New York',
 	      country: 'United States',
         cause: 'Poverty Relief',
-        organizationId: id2
+        organizationId: id2,
+        photos: []
       }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
@@ -77,7 +78,7 @@ describe('Test the Project API', () => {
       }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(200);
       done();
     });
   });

@@ -57,7 +57,7 @@ module.exports = {
 		 }
 	  ]
 	})
-	.then(project => res.status(201).send(project))
+	.then(project => res.status(200).send(project))
     .catch(error => {
         console.log(error);
         res.status(500).send(error);
@@ -66,7 +66,7 @@ module.exports = {
   update(req, res) {
     return Project
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
-      .then(result => res.status(201).send(result))
+      .then(result => res.status(200).send(result))
       .catch(error => {
         console.log(error);
         res.status(500).send(error);
