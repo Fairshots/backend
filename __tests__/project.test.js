@@ -42,7 +42,8 @@ describe('Test the Project API', () => {
 	      city: 'New York',
 	      country: 'United States',
         cause: 'Poverty Relief',
-        organizationId: id2
+        organizationId: id2,
+        photos: []
       }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
@@ -55,29 +56,17 @@ describe('Test the Project API', () => {
 
   test('update new project ', (done) => {
     jest.setTimeout(30000);
-    request(app).post(`/api/project/${projId}`)
+    request(app).put(`/api/project/${projId}`)
     .set('Authorization', `bearer ${token2}`)
     .send(
       {
-        title: "Proj 1",
-        description: "Test Proj",
-        startingDate: "2018-09-01",
-        duration: 90,
-        applicationDate: "2018-08-15",
-        fundingOptions: 'Photographer',
-        photographersNeeded: 3,
-        professionalOnly: true,
-        question1: "do you make tests?",
-        question2: "describe your tests",
-	      question3: "test yourself" ,
-	      city: 'New York',
-	      country: 'United States',
-        cause: 'Poverty Relief',
-        organizationId: id2
+        Title: "Project 1",
+        Description: "Test Project",
+        StartingDate: "2019-09-21",
       }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(200);
       done();
     });
   });

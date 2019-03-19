@@ -1,6 +1,7 @@
 const Project = require('../models').Project;
 const Organization = require('../models').Organization;
 const Photographer = require('../models').Photographer;
+const Photos = require('../models').Photos;
 
 module.exports = {
   create(req, res) {
@@ -25,8 +26,9 @@ module.exports = {
 	      City: req.body.city,
 	      Country: req.body.country,
         Cause: req.body.cause,
-        organizationId: req.body.organizationId
-      })
+        organizationId: req.body.organizationId,
+        Photos: req.body.photos
+      }, { include: [ Photos ]})
       .then(project => res.status(201).send(project))
       .catch(error => {
         console.log(error);
@@ -49,9 +51,13 @@ module.exports = {
 	       attributes: [ 'answer1', 'answer2', 'answer3', 'selected' ]
 	    }
 	  },
+	  {
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		 }
 	  ]
 	})
-	.then(project => res.status(201).send(project))
+	.then(project => res.status(200).send(project))
     .catch(error => {
         console.log(error);
         res.status(500).send(error);
@@ -60,7 +66,7 @@ module.exports = {
   update(req, res) {
     return Project
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
-      .then(result => res.status(201).send(result))
+      .then(result => res.status(200).send(result))
       .catch(error => {
         console.log(error);
         res.status(500).send(error);
