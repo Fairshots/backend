@@ -53,7 +53,7 @@ module.exports = {
 
       if (!photographer) {
         Organization.findOne({ where: { Email: req.body.Email } }).then((organization) => {
-          mailerService.passwordForgotMail(organization, 'Organization', req.headers.host || 'fairshots.org')
+          mailerService.passwordForgotMail(organization, 'Organization', req.headers.origin || 'fairshots.org')
             .then((info) => res.send(info));
 
 
