@@ -28,22 +28,22 @@ describe('Test the Project API', () => {
     .set('Authorization', `bearer ${token2}`)
     .send(
       {
-        title: "Proj 1",
-        description: "Test Proj",
-        startingDate: "2018-09-01",
-        duration: 90,
-        applicationDate: "2018-08-01",
-        fundingOptions: 'No Funds',
-        photographersNeeded: 3,
-        professionalOnly: true,
-        question1: "do you make tests?",
-        question2: "describe your tests",
-	      question3: "test yourself" ,
-	      city: 'New York',
-	      country: 'United States',
-        cause: 'Poverty Relief',
+        Title: "Proj 1",
+        Description: "Test Proj",
+        StartingDate: "2018-09-01",
+        Duration: 90,
+        ApplicationDate: "2018-08-01",
+        FundingOptions: 'No Funds',
+        PhotographersNeeded: 3,
+        ProfessionalOnly: true,
+        Question1: "do you make tests?",
+        Question2: "describe your tests",
+	      Question3: "test yourself" ,
+	      City: 'New York',
+	      Country: 'United States',
+        Cause: 'Poverty Relief',
         organizationId: id2,
-        photos: []
+        Photos: []
       }) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {

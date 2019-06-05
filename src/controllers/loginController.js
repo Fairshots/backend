@@ -37,9 +37,7 @@ module.exports = {
       userId: req.user.id,
       userName: req.user.Name,
       userType: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization',
-      token,
-      CL_apikey: auth.opts.CL_apikey,
-      CL_apisecret: auth.opts.CL_apisecret
+      token
     });
   },
 
