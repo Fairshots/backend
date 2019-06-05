@@ -1,32 +1,34 @@
 const Project = require('../models').Project;
 const Organization = require('../models').Organization;
 const Photographer = require('../models').Photographer;
+const Photos = require('../models').Photos;
 
 module.exports = {
   create(req, res) {
     return Project
       .create({
-        Title: req.body.title,
-        Description: req.body.description,
-        StartingDate: req.body.startingDate,
-        Duration: req.body.duration,
-        ApplicationDate: req.body.applicationDate,
-        Delivery: req.body.deliveryDate,
-        FundingOptions: req.body.fundingOptions,
-        FundsAvailable: req.body.fundsAvailable,
-        FundsDetails: req.body.fundsDetails,
-        FundsFairshot: req.body.fundsFairshot,
-        PhotographersNeeded: req.body.photographersNeeded,
-        ProfessionalOnly: req.body.professionalOnly,
-        GeographicRestriction: req.body.geographicRestriction,
-        Question1: req.body.question1,
-        Question2: req.body.question2,
-	      Question3: req.body.question3,
-	      City: req.body.city,
-	      Country: req.body.country,
-        Cause: req.body.cause,
-        organizationId: req.body.organizationId
-      })
+        Title: req.body.Title,
+        Description: req.body.Description,
+        StartingDate: req.body.StartingDate,
+        Duration: req.body.Duration,
+        ApplicationDate: req.body.ApplicationDate,
+        Delivery: req.body.Delivery,
+        FundingOptions: req.body.FundingOptions,
+        FundsAvailable: req.body.FundsAvailable,
+        FundsDetails: req.body.FundsDetails,
+        FundsFairshot: req.body.FundsFairshot,
+        PhotographersNeeded: req.body.PhotographersNeeded,
+        ProfessionalOnly: req.body.ProfessionalOnly,
+        GeographicRestriction: req.body.GeographicRestriction,
+        Question1: req.body.Question1,
+        Question2: req.body.Question2,
+	      Question3: req.body.Question3,
+	      City: req.body.City,
+	      Country: req.body.Country,
+        Cause: req.body.Cause,
+        organizationId: req.body.organizationId,
+        Photos: req.body.Photos
+      }, { include: [ Photos ]})
       .then(project => res.status(201).send(project))
       .catch(error => {
         console.log(error);
@@ -49,18 +51,23 @@ module.exports = {
 	       attributes: [ 'answer1', 'answer2', 'answer3', 'selected' ]
 	    }
 	  },
+	  {
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		 }
 	  ]
 	})
-	.then(project => res.status(201).send(project))
+	.then(project => res.status(200).send(project))
     .catch(error => {
         console.log(error);
         res.status(500).send(error);
      });
   },
+
   update(req, res) {
     return Project
       .update(req.body, { where: { id: req.params.id }, fields: Object.keys(req.body) })
-      .then(result => res.status(201).send(result))
+      .then(result => res.status(200).send(result))
       .catch(error => {
         console.log(error);
         res.status(500).send(error);

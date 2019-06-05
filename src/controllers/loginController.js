@@ -37,9 +37,7 @@ module.exports = {
       userId: req.user.id,
       userName: req.user.Name,
       userType: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization',
-      token,
-      CL_apikey: auth.opts.CL_apikey,
-      CL_apisecret: auth.opts.CL_apisecret
+      token
     });
   },
 
@@ -53,7 +51,7 @@ module.exports = {
 
       if (!photographer) {
         Organization.findOne({ where: { Email: req.body.Email } }).then((organization) => {
-          mailerService.passwordForgotMail(organization, 'Organization', req.headers.host || 'fairshots.org')
+          mailerService.passwordForgotMail(organization, 'Organization', req.headers.origin || 'fairshots.org')
             .then((info) => res.send(info));
 
 

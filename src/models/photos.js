@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Photos.belongsTo(models.Photographer, { foreignKey: 'photographerId', onDelete: 'CASCADE' });
     Photos.belongsTo(models.Organization, { foreignKey: 'organizationId', onDelete: 'CASCADE' });
+    Photos.belongsTo(models.Project, { foreignKey: 'projectId', onDelete: 'CASCADE' });
   };
   return Photos;
 };
