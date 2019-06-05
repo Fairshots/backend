@@ -42,7 +42,7 @@ module.exports = {
 			  },
 			  {
 			  	model: Project,
-			  	attributes: [ 'id', 'Title']
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate']
 			  }]
 			})
 		    .then(user => {
