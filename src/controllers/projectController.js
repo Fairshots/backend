@@ -46,7 +46,7 @@ module.exports = {
 	  },
 	  {
 	    model: Photographer,
-	    attributes: [ 'id', 'Name'  ],
+	    attributes: [ 'id', 'Name', 'ProfilePic', 'Country'  ],
 	    through: {
 	       attributes: [ 'answer1', 'answer2', 'answer3', 'selected' ]
 	    }
