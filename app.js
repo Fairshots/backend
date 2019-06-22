@@ -21,4 +21,7 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Fairshots backend.'
 }));
 
+//allow OPTIONS on all resources
+app.options('*', cors());
+
 module.exports = app;
