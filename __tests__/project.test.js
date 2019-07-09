@@ -98,4 +98,15 @@ describe('Test the Project API', () => {
       done();
     });
   });
+  
+  test('get all projects', (done) => {
+    jest.setTimeout(30000);
+    request(app).get(`/api/project/all`)
+    .set('Authorization', `bearer ${token2}`)
+    .then((res) => {
+      expect(res.body).toBeDefined();
+      expect(res.statusCode).toBe(200);
+      done();
+    });
+  });
 });

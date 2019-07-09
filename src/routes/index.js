@@ -58,6 +58,9 @@ module.exports = (app) => {
     .delete(photos.delete);
 
 //projects routes
+
+  app.get('/api/project/all', passport.authenticate('jwt', { session: false }), project.getAll);
+
   app.post('/api/project', passport.authenticate('jwt', { session: false }), project.create);
   app.route('/api/project/:id')
     .all(passport.authenticate('jwt', { session: false }))
@@ -78,7 +81,3 @@ module.exports = (app) => {
 
 
 };
-
-
-
-
