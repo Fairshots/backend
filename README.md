@@ -47,6 +47,7 @@ others - developer or temporary branches
 | create new project  |  /api/project |  POST | Header Authorization: 'bearer token'   |
 | apply to project (photographer)  |  /api/project/:id | POST  | Header Authorization: 'bearer token'   |
 | view project  | /api/project/:id  | GET  | Header Authorization: 'bearer token'   |
+| get basic info from all projects  | /api/project/all  | GET  | Header Authorization: 'bearer token'   |
 
 ## Details on Request Params  
 
@@ -634,3 +635,29 @@ Code 401 - Unauthorized
 Cause: invalid API Token  
 Code 500 - Server Error  
 Possible Causes: invalid values, wrong key names  
+
+**/api/project/all*  
+**GET**  
+```javascript
+
+Authentication: 'bearer token'
+````
+Success:  
+Code 200 - created  
+content: object  
+Returning:  
+```javascript
+[{
+        Title,
+        Description,
+        ApplicationDate,
+        Country,
+        Cause,
+	[organization name & logo]
+	[1 Photo]
+}, ...]
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+
