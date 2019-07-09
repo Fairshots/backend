@@ -73,10 +73,12 @@ module.exports = {
         res.status(500).send(error);
       });
   },
+  
   delete(req, res) {
     return Project.destroy({ where: { id: req.params.id } }).then(project =>
       res.json({ msg: 'Project deleted from database successfully' }));
   },
+  
   applyTo(req, res) {
     return Photographer.findById(req.body.photographerId).then(photographer =>
         Project.findById(req.params.id).then(
@@ -94,7 +96,25 @@ module.exports = {
         res.status(500).send(error);
       });
 
-  }
+  },
+  
+  getAll(req, res) {
+    return Project
+    .findAll({ attributes: ['id', 'Title', 'Description', 'ApplicationDate', 'Cause', 'Country' ],
+      include: [{
+		    model: Photos,
+		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+		    limit: 1,
+		    separate: true
+		  },
+		  {
+	    model: Organization,
+	    attributes: [ 'Name', 'Logo' ]
+	    }]
+    })
+    .then(list => res.json(list));
+  },
+
 
 
 
