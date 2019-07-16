@@ -10,6 +10,7 @@ module.exports = {
         Password: req.body.Password,
         Skill: req.body.Skill,
         Biography: req.body.Biography,
+        Phone: req.body.Phone,
         webpage: req.body.webpage,
         facebook: req.body.facebook,
         instagram: req.body.instagram,
