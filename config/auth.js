@@ -1,6 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
+const jwks = require('jwks-rsa');
 
 const Photographer = require('../src/models').Photographer;
 const Photos = require('../src/models').Photos;
@@ -85,7 +86,22 @@ module.exports = {
 					  return done(null, false, { message: 'Incorrect password.' });
 			      });
 		    }).catch(err => console.log("Not a photographer"));
-	  })
+	  }),
+	  //thanks https://github.com/auth0/node-jwks-rsa/tree/master/examples/passport-demo
+	  auth0Check: new JwtStrategy({
+	      secretOrKeyProvider: jwks.passportJwtSecret({
+	      cache: true,
+	      rateLimit: true,
+	      jwksRequestsPerMinute: 5,
+	      jwksUri: 'https://curly-waterfall-1934.auth0.com/.well-known/jwks.json'
+	    }),
+	    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	    audience: ' http://3.18.104.39:8080',
+	    issuer: 'https://curly-waterfall-1934.auth0.com/',
+	    algorithms: ['RS256'] 
+	  	
+	  },  (payload, done) => done(null, payload) )
+
 
 };
 
