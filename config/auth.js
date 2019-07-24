@@ -96,11 +96,11 @@ module.exports = {
 	      jwksUri: 'https://curly-waterfall-1934.auth0.com/.well-known/jwks.json'
 	    }),
 	    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	    audience: ' http://3.18.104.39:8080',
+	    audience: `http://${process.env.C9_HOSTNAME}:8080`,
 	    issuer: 'https://curly-waterfall-1934.auth0.com/',
 	    algorithms: ['RS256'] 
 	  	
-	  },  (payload, done) => done(null, payload) )
+	  },  (payload, done) => {console.log(payload);done(null, payload)} )
 
 
 };

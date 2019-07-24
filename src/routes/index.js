@@ -30,7 +30,7 @@ module.exports = (app) => {
   app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
   app.post('/login/forgot', loginController.passwordForgot);
   app.post('/login/pwreset/:token', loginController.passwordReset)
-  app.get('/login/auth0', passport.authenticate('auth0', { session: false}), (req, res) => {console.log(req.user.sub); res.json(req.user)})
+  app.get('/login/auth0', passport.authenticate('auth0', { session: false}), loginController.auth0)
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
