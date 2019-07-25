@@ -10,6 +10,7 @@ const mailerService = require('../utilities/mailerService');
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
+passport.use('auth0', auth.auth0Check)
 /**
  * This mdule routes user requests to controllers according to http verbs and URLs requested
  *
@@ -29,7 +30,7 @@ module.exports = (app) => {
   app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
   app.post('/login/forgot', loginController.passwordForgot);
   app.post('/login/pwreset/:token', loginController.passwordReset)
-
+  app.get('/login/auth0', passport.authenticate('auth0', { session: false}), loginController.auth0)
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)

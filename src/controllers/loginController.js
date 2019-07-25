@@ -40,6 +40,22 @@ module.exports = {
       token
     });
   },
+  
+  auth0(req, res) {
+    Photographer.findOne({ where: { Email: req.user[`http://fairshots.org/email`] } }).then((photographer) => {
+      if (!photographer) {
+        Organization.findOne({ where: { Email: req.user[`http://fairshots.org/email`] } }).then((organization) => {
+          module.exports.login(req = { user: organization }, res)
+        }).catch(err => {
+	        console.log(err);
+	        res.status(400).send("User not found");
+
+	      });
+      }
+      module.exports.login(req = { user: photographer }, res);
+    }
+    ).catch(err => {console.log('not a photographer')});
+  }, 
 
 /** Sends the user an e-mail with the link to password reset if user account is found in DB
  * @
