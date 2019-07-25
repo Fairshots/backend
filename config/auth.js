@@ -104,7 +104,7 @@ module.exports = {
 		  }
 	    }),
 	    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	    audience: ${process.env.HOSTNAME},
+	    audience: process.env.HOSTNAME,
 	    issuer: 'https://curly-waterfall-1934.auth0.com/',
 	    algorithms: ['RS256'] 
 	  	
