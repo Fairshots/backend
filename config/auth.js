@@ -93,7 +93,15 @@ module.exports = {
 	      cache: true,
 	      rateLimit: true,
 	      jwksRequestsPerMinute: 5,
-	      jwksUri: 'https://curly-waterfall-1934.auth0.com/.well-known/jwks.json'
+	      jwksUri: 'https://curly-waterfall-1934.auth0.com/.well-known/jwks.json',
+	      handleSigningKeyError: (err, cb) => {
+	      	console.log(err)
+		    if (err instanceof jwks.SigningKeyNotFoundError) {
+		      return cb(new Error('This is bad'));
+		    }
+		
+		    return cb(err);
+		  }
 	    }),
 	    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	    audience: `http://${process.env.HOSTNAME}:8080`,
