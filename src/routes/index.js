@@ -60,7 +60,7 @@ module.exports = (app) => {
 
 //projects routes
 
-  app.get('/api/project/all', passport.authenticate('jwt', { session: false }), project.getAll);
+  app.get('/api/project/all', project.getAll);
 
   app.post('/api/project', passport.authenticate('jwt', { session: false }), project.create);
   app.route('/api/project/:id')
