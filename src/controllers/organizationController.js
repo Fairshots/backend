@@ -1,4 +1,5 @@
 const Organization = require('../models').Organization;
+const Project = require('../models').Project;
 
 module.exports = {
   create(req, res) {
@@ -28,9 +29,18 @@ module.exports = {
   },
 
   read(req, res) {
-    const usr = Object.assign({}, req.user.dataValues);
-    delete usr.Password;
-    res.json(usr);
+    return Organization
+      .findOne({where: {id: req.params.id}, 
+        include: [
+			  {
+			  	model: Project,
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate']
+			  }],
+      }).then(usr => {
+        delete usr.Password;
+        res.json(usr);
+      })
+
   },
 
   getAll(req, res) {

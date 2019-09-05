@@ -35,6 +35,7 @@ module.exports = (app) => {
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
   app.get('/api/photographer/all', photographer.getAll)
+  app.get('/api/photographer/all/:id', photographer.getOneFromAll)
   app.get('/api/organization/all', organization.getAll)
 
 

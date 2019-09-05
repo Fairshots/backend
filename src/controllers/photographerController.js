@@ -27,9 +27,16 @@ module.exports = {
   },
 
   read(req, res) {
-    const usr = Object.assign({}, req.user.dataValues);
-    delete usr.Password;
-    res.json(usr);
+    return Photographer
+      .findOne({where: {id: req.params.id}, 
+        include: [{
+  		    model: Photos,
+  		    attributes: [ 'id', 'cloudlink' ]
+  		  }],
+      }).then(usr => {
+        delete usr.Password;
+        res.json(usr);
+      })
   },
 
   getAll(req, res) {
@@ -42,7 +49,19 @@ module.exports = {
     })
     .then(list => res.json(list));
   },
-
+  
+  getOneFromAll(req, res) {
+    return Photographer
+    .findOne({where: {id: req.params.id}, 
+      attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
+      include: [{
+		    model: Photos,
+		    attributes: [ 'id', 'cloudlink' ]
+		  }],
+    })
+    .then(list => res.json(list));
+  },
+  
   update(req, res) {
     if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
 
