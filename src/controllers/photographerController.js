@@ -1,5 +1,7 @@
 const Photographer = require('../models').Photographer;
 const Photos = require('../models').Photos;
+const Project = require('../models').Project;
+const Application = require('../models').Application;
 
 module.exports = {
   create(req, res) {
@@ -32,6 +34,14 @@ module.exports = {
         include: [{
   		    model: Photos,
   		    attributes: [ 'id', 'cloudlink' ]
+  		  }, 
+  		  {
+  		    model: Project,
+  		    attributes: ['id', 'Title'],
+  		    through: {
+  		    model: Application,
+  		    attributes: ['answer1', 'answer2', 'answer3', 'selected']
+  		    }
   		  }],
       }).then(usr => {
         delete usr.Password;
