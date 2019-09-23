@@ -83,6 +83,8 @@ module.exports = (app) => {
     .catch((err) => res.status(400).send(err))
   })
 */
-  app.post('/api/mail', mail.toUser);
+//mail routes
+  app.post('/api/mail', passport.authenticate('jwt', { session: false }), mail.toUser); // just authenticated users can send messages to one another
+  app.post('/api/contactus', mail.contactUs)
 
 };
