@@ -3,6 +3,7 @@ const organization = require('../controllers').organizationController;
 const photos = require('../controllers').photosController;
 const project = require('../controllers').projectController;
 const featured = require('../controllers').featuredController;
+const mail = require('../controllers').mailController;
 const passport = require('passport');
 const auth = require('../../config/auth');
 const loginController = require('../controllers').loginController;
@@ -70,9 +71,10 @@ module.exports = (app) => {
     .put(project.update)
     .delete(project.delete)
     .post(project.applyTo) //route for photographer application
-
+/*
   app.post('/api/mail', (req, res) => {
-    mailerService({
+    console.log(req.body);
+    mailerService.mailer({
       from: 'Fairshots.org <noreply@fairshots.org>',
       to: req.body.email,
       subject: req.body.subject,
@@ -80,6 +82,9 @@ module.exports = (app) => {
     }).then((info) => res.send(info))
     .catch((err) => res.status(400).send(err))
   })
-
+*/
+//mail routes
+  app.post('/api/mail', passport.authenticate('jwt', { session: false }), mail.toUser); // just authenticated users can send messages to one another
+  app.post('/api/contactus', mail.contactUs)
 
 };
