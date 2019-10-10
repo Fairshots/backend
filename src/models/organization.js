@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: { notEmpty: true }
     },
-    Parent: DataTypes.STRING,
     Logo: {
       type: DataTypes.STRING,
       allowNull: false
@@ -42,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     facebook: DataTypes.STRING,
-    FundingPartner: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
     City: {
       type: DataTypes.STRING,
       allowNull: false
