@@ -43,7 +43,7 @@ module.exports = {
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'Causes', 'Background', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'Country' ]})
     .then(list => res.json(list));
   },
 
