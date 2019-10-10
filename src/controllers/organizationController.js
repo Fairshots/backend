@@ -6,7 +6,6 @@ module.exports = {
     return Organization
       .create({
         Name: req.body.Name,
-        Parent: req.body._parent,
         Logo: req.body.Logo,
         Email: req.body.Email,
         ContactPerson: req.body.ContactPerson,
@@ -16,7 +15,6 @@ module.exports = {
         Background: req.body.Background,
         website: req.body.website,
         facebook: req.body.facebook,
-        FundingPartner: req.body.FundingPartner,
         City: req.body.City,
         Country: req.body.Country,
         Languages: req.body.Languages,
