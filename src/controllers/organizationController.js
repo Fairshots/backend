@@ -18,7 +18,7 @@ module.exports = {
         City: req.body.City,
         Country: req.body.Country,
         Languages: req.body.Languages,
-        Causes: req.body.Causes,
+        PrimaryCause: req.body.PrimaryCause,
       })
       .then(organization => res.status(201).send(organization))
       .catch(error => {

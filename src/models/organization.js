@@ -53,8 +53,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     },
-    Causes: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    PrimaryCause: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
   });
   Organization.associate = (models) => {
