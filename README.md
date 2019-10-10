@@ -352,7 +352,6 @@ Returning:
 ```javascript
 {
   name: [string],   //required
-  _parent: [string],
   logo: [URL],
   email: [email],  //required
   person: [string], //required
@@ -362,7 +361,6 @@ Returning:
   background: [text], //required
   website: [URL], //required
   facebook: [URL],
-  funding: [boolean], //required
   languages: [string array] ,
   causes: [string array] ,
   city: [string] , //required
@@ -398,7 +396,6 @@ Returning:
 ```javascript
 {
   Name: [string],   //required
-  Parent: [string],
   Logo: [URL],
   Background: [text], //required
   website: [URL],
@@ -430,7 +427,6 @@ Returning:
 ```javascript
 {
   Name: [string],   //required
-  Parent: [string],
   Logo: [URL],
   Email: [email],  //required
   ContactPerson: [string],
@@ -440,7 +436,6 @@ Returning:
   Background: [text], //required
   website: [URL],
   facebook: [URL],
-  FundingPartner: [boolean],
   Languages: [string array] ,
   Causes: [string array] ,
   City: [string] , //required
