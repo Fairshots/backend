@@ -10,7 +10,7 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
     'portfolioOrder', {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     }
   ),
 

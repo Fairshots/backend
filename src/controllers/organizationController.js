@@ -1,5 +1,6 @@
 const Organization = require('../models').Organization;
 const Project = require('../models').Project;
+const Photos = require('../models').Photos
 
 module.exports = {
   create(req, res) {
@@ -32,7 +33,13 @@ module.exports = {
         include: [
 			  {
 			  	model: Project,
-			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate']
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate'],
+  	      include: [{
+    		    model: Photos,
+    		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+    		    limit: 1,
+    		    separate: true
+    		  }],
 			  }],
       }).then(usr => {
         delete usr.Password;
@@ -43,10 +50,29 @@ module.exports = {
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'Causes', 'Background', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'Country' ]})
     .then(list => res.json(list));
   },
-
+  
+  getOneFromAll(req, res) {
+    return Organization
+    .findOne({where: {id: req.params.id}, 
+      attributes: ['id', 'Name', 'Logo', 'PrimaryCause','Background', 'Country' ],
+      include: [
+			  {
+			  	model: Project,
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate'],
+  	      include: [{
+    		    model: Photos,
+    		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+    		    limit: 1,
+    		    separate: true
+    		  }],
+			  }],
+    })
+    .then(list => res.json(list));
+  },
+  
   update(req, res) {
     if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
 

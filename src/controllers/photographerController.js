@@ -33,7 +33,7 @@ module.exports = {
       .findOne({where: {id: req.params.id}, 
         include: [{
   		    model: Photos,
-  		    attributes: [ 'id', 'cloudlink' ]
+  		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]
   		  }, 
   		  {
   		    model: Project,
@@ -66,7 +66,7 @@ module.exports = {
       attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
       include: [{
 		    model: Photos,
-		    attributes: [ 'id', 'cloudlink' ]
+		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]
 		  }],
     })
     .then(list => res.json(list));

@@ -38,6 +38,7 @@ module.exports = (app) => {
   app.get('/api/photographer/all', photographer.getAll)
   app.get('/api/photographer/all/:id', photographer.getOneFromAll)
   app.get('/api/organization/all', organization.getAll)
+  app.get('/api/organization/all/:id', organization.getOneFromAll)
 
 
   // photographer profile route with jwt check
