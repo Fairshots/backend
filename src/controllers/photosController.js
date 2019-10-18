@@ -10,7 +10,7 @@ module.exports = {
   },
 
     delete(req, res) {
-      Photos.findById(req.body.photoIds[0]).then( photo => {
+      Photos.findByPk(req.body.photoIds[0]).then( photo => {
         if (photo.cloudlink.includes("cloudinary")) {
           cloudinary.delPhoto(photo.cloudlink).then(ok => {
                 Photos.destroy({ where: {id: req.body.photoIds } }).then(result =>

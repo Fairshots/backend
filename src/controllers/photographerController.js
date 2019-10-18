@@ -20,10 +20,12 @@ module.exports = {
         Languages: req.body.Languages,
         Causes: req.body.Causes,
         City: req.body.City,
-        Country: req.body.Country
-      })
+        Country: req.body.Country,
+        Photos: req.body.Photos
+        }, { include: [ Photos ]})
       .then(result => res.status(201).send(result))
       .catch(error => {
+        console.log(error)
         res.status(500).send(error);
       });
   },

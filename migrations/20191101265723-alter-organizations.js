@@ -2,7 +2,10 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => { 
-    return queryInterface.renameColumn('Organizations', 'Causes', 'PrimaryCause')
+    return queryInterface.changeColumn('Organizations','PrimaryCause',
+    {
+      type: Sequelize.STRING,
+    })
     
    /* await queryInterface.changeColumn('Organizations','PrimaryCause',
     {

@@ -9,7 +9,7 @@ module.exports = {
     ]
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.addColumn('Organizations', 
+  down: (queryInterface, Sequelize) => Promise.all( [
   
     /*
       Add reverting commands here.
@@ -19,7 +19,7 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     queryInterface.addColumn('Organizations', 'Parent', { type: Sequelize.STRING }),
-    queryInterface.addColumn('Organizations', 'FundingPartner', { type: Sequelize.STRING }),
+    queryInterface.addColumn('Organizations', 'FundingPartner', { type: Sequelize.STRING })]
     
     
   )

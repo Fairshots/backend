@@ -18,7 +18,7 @@ module.exports = {
 	  opts,
 	  jwtStrategy: new JwtStrategy(opts, (payload, done) => {
 	  	 if (payload.usertype == 'photographer') {
-		    Photographer.findById(payload.id,
+		    Photographer.findByPk(payload.id,
 		    {
 			  include: [{
 			    model: Photos,
@@ -35,7 +35,7 @@ module.exports = {
 		    })
 		    .catch(err => done(err, null));
 	  	 } else if (payload.usertype == 'organization') {
-		    Organization.findById(payload.id,
+		    Organization.findByPk(payload.id,
 		    {
 			  include: [{
 			    model: Photos,
