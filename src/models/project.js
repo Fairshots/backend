@@ -84,6 +84,7 @@ module.exports = (sequelize, DataTypes) => {
       model: models.Application,
       unique: false
     }, foreignKey: 'projectId', onDelete: 'CASCADE', hooks: true, otherKey: 'photographerId', onDelete: 'CASCADE', hooks: true});
+    Project.hasMany(models.Photos, { foreignKey: 'projectId', onDelete: 'CASCADE' });
 
   };
   return Project;

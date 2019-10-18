@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: { notEmpty: true }
     },
-    Parent: DataTypes.STRING,
     Logo: {
       type: DataTypes.STRING,
       allowNull: false
@@ -36,16 +35,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     Position: DataTypes.STRING,
     Phone: DataTypes.STRING,
-    Background: DataTypes.STRING,
+    Background: DataTypes.TEXT,
     website: {
       type: DataTypes.STRING,
       allowNull: false
     },
     facebook: DataTypes.STRING,
-    FundingPartner: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
     City: {
       type: DataTypes.STRING,
       allowNull: false
@@ -58,8 +53,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     },
-    Causes: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    PrimaryCause: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
   });
   Organization.associate = (models) => {

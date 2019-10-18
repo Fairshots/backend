@@ -4,6 +4,7 @@ const photosController = require('./photosController');
 const projectController = require('./projectController');
 const loginController = require('./loginController');
 const featuredController = require('./featuredController');
+const mailController = require('./mailController');
 
 module.exports = {
   organizationController,
@@ -11,6 +12,7 @@ module.exports = {
   photosController,
   projectController,
   loginController,
-  featuredController
+  featuredController,
+  mailController
 
 };

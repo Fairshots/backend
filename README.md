@@ -1,7 +1,5 @@
 # Fairshots Backend &middot; [![GitHub license](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://github.com/Fairshots/backend/blob/master/LICENSE) &middot; [![CircleCI](https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg)](https://circleci.com/gh/Fairshots/backend)
 
-
-https://img.shields.io/circleci/project/github/Fairshots/backend/master.svg
 <p align="center">
   <img src="https://raw.githubusercontent.com/Fairshots/Fairshots.org/master/images/favicon-256.png" alt="logo" width="100" />
 </p>
@@ -31,6 +29,8 @@ others - developer or temporary branches
 | Title  | URL  | Method  | Params  |
 |---|---|---|---|
 | login  | /login  | POST  |   |
+| forgot password | /login/forgot | POST |    |
+| reset password  | /login/pwreset/:token |    |
 |  get featured three photographers and three orgs  | /api/featured | GET  |    |
 | register new photographer  | /api/photographer  | POST  |  |
 |  get basic info of all photographers | /api/photographer/all | GET  |    |
@@ -45,16 +45,19 @@ others - developer or temporary branches
 | delete organization  | /api/organization/:id  | DELETE  |  Header Authorization: 'bearer token'  |
 | insert links of photos | /api/organization/:id/photos  |  POST | Header Authorization: 'bearer token'   |
 | create new project  |  /api/project |  POST | Header Authorization: 'bearer token'   |
-| apply to project (photographer)  |  /api/project/:id | POST  | Header Authorization: 'bearer token'   |
 | view project  | /api/project/:id  | GET  | Header Authorization: 'bearer token'   |
-| get basic info from all projects  | /api/project/all  | GET  | Header Authorization: 'bearer token'   |
+| update project  | /api/project/:id  | PUT  | Header Authorization: 'bearer token'   |
+| delete project  | /api/project/:id  | DELETE  | Header Authorization: 'bearer token'   |
+| apply to project (photographer)  |  /api/project/:id | POST  | Header Authorization: 'bearer token'   |
+| insert links of photos in project | /api/project/:id/photos  |  POST | Header Authorization: 'bearer token'   |
+| send email to another user (photographer or org) | /api/mail/ | POST |    | 
 
 ## Details on Request Params  
 
 All requests params may be sent as x-www-form-urlencoded or JSON in request body.  
 
 
-**/login**  (req body only)  
+### **/login**  (req body only)  
 **POST**  
 ```javascript
 {
@@ -76,9 +79,51 @@ Returning:
 Failure:  
 Code 401 - Unauthorized  
 
+### **/login/forgot**  (req body only)  
+**POST**  
+```javascript
+{
+  Email: [string],
+}
+````
+Success:  
+Code 200 -  
+content: object  
+Returning:  
+- e-mail sent  
+```javascript
+{ 
+   info
+} 
+````
+Failure:  
+Code 400 - User not found  
+
+### **/login/pwreset/:token**  
+**POST**  
+parameters: reset token must be handled in frontend replacing all "&" by "." before posting
+```javascript
+{
+  Email: [string]
+  Password: [string],
+}
+````
+Success:  
+Code 200 -  
+content: object  
+Returning:  
+```javascript
+{ 
+   msg: "Password was successfully reset"
+} 
+````
+Failure:  
+Code 400 - missing data
+Code 401 - invalid token
+Code 500 - error 
 
 
-**/api/featured/  
+### **/api/featured/  
 **GET**  
 
 Success:  
@@ -126,7 +171,7 @@ Code 500 - Server Error
 ```` 
 
 
-**/api/photographer**  
+### **/api/photographer**  
 **POST**  
 ```javascript
 {
@@ -162,7 +207,7 @@ Code 500 - Internal Server Error
 } 
 ````
 
-**/api/photographer/all*  
+### **/api/photographer/all**  
 **GET**  
 
 Success:  
@@ -193,7 +238,7 @@ Code 500 - Server Error
 } 
 ```` 
 
-**/api/photographer/:id*  
+### **/api/photographer/:id**  
 **GET**  
 ```javascript
 
@@ -271,7 +316,7 @@ Code 500 - Server Error
 Possible Causes: invalid values, wrong key names  
 
 
-**/api/photographer/:id/photos**  
+### **/api/photographer/:id/photos**  
 **POST** 
 ```javascript
 {
@@ -303,12 +348,11 @@ Returning:
  ```
  
 
-**/api/organization**  
+### **/api/organization**  
 **POST** 
 ```javascript
 {
   name: [string],   //required
-  _parent: [string],
   logo: [URL],
   email: [email],  //required
   person: [string], //required
@@ -318,7 +362,6 @@ Returning:
   background: [text], //required
   website: [URL], //required
   facebook: [URL],
-  funding: [boolean], //required
   languages: [string array] ,
   causes: [string array] ,
   city: [string] , //required
@@ -343,7 +386,7 @@ Code 500 - Internal Server Error
   error object
 } 
 ````
-**/api/organization/all**  
+### **/api/organization/all**  
 **GET**  
 
 
@@ -354,7 +397,6 @@ Returning:
 ```javascript
 {
   Name: [string],   //required
-  Parent: [string],
   Logo: [URL],
   Background: [text], //required
   website: [URL],
@@ -373,7 +415,7 @@ Code 500 - Internal Server Error
 } 
 ````
 
-**/api/organization/:id**  
+### **/api/organization/:id**  
 **GET**  
 ```javascript
 
@@ -386,7 +428,6 @@ Returning:
 ```javascript
 {
   Name: [string],   //required
-  Parent: [string],
   Logo: [URL],
   Email: [email],  //required
   ContactPerson: [string],
@@ -396,7 +437,6 @@ Returning:
   Background: [text], //required
   website: [URL],
   facebook: [URL],
-  FundingPartner: [boolean],
   Languages: [string array] ,
   Causes: [string array] ,
   City: [string] , //required
@@ -452,7 +492,7 @@ Code 500 - Server Error
 Possible Causes: invalid values, wrong key names  
 
 
-**/api/organization/:id/photos**  
+### **/api/organization/:id/photos**  
 **POST** 
 ```javascript
 {
@@ -483,7 +523,7 @@ Returning:
  }]
  ```
  
- **/api/project/**  
+ ### **/api/project/**  
  **POST** 
 ```javascript
 {
@@ -502,11 +542,12 @@ Returning:
         geographicRestriction: ['Anywhere'|'Continent'|'Country'|'Region'],
         question1: [string],
         question2: [string],
-	      question3: [string],
-	      city: [string],
-	      country: [string],
+	question3: [string],
+	city: [string],
+	country: [string],
         cause: [string],
-        organizationId: [ID]
+        organizationId: [ID],
+	photos: [ { projectId: [integer], cloudlink: [string] }, ... ]  
 }
 ```
 Success:  
@@ -526,7 +567,7 @@ Code 500 - Internal Server Error
 } 
 ````
 
-**/api/project/:id*  
+### **/api/project/:id*  
 **GET**  
 ```javascript
 
@@ -553,11 +594,12 @@ Returning:
         GeographicRestriction,
         Question1,
         Question2,
-	      Question3,
-	      City,
-	      Country,
+	Question3,
+	City,
+	Country,
         Cause,
         organizationId,
+	photos,
         createdAt,
         updatedAt
 }
@@ -636,6 +678,59 @@ Cause: invalid API Token
 Code 500 - Server Error  
 Possible Causes: invalid values, wrong key names  
 
+
+ ### **/api/project/:id/photos**  
+ **POST** 
+```javascript
+{
+	photos: [ { projectId: [integer], cloudlink: [string] }, ... ]  
+}
+```
+Success:  
+Code 201 - created  
+content: object  
+Returning:  
+```javascript
+[
+{ 
+  photos
+}, ...
+] 
+````
+Failure:  
+Code 500 - Internal Server Error  
+```javascript
+{ 
+  error object
+} 
+````
+
+ ### **/api/mail**  (request body only)
+ **POST** 
+```javascript
+{
+   email: [string],
+   subject: [string]
+   message: [string] 
+}
+```
+Success:  
+Code 200 - OK  
+content: info object  
+Returning:  
+```javascript
+{ 
+  info
+}
+````
+Failure:  
+Code 500 - Internal Server Error  
+```javascript
+{ 
+  error object
+} 
+````
+=======
 **/api/project/all*  
 **GET**  
 ```javascript
@@ -660,4 +755,5 @@ Returning:
 Failure:  
 Code 401 - Unauthorized  
 Cause: invalid API Token  
+
 

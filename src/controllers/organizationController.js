@@ -1,11 +1,12 @@
 const Organization = require('../models').Organization;
+const Project = require('../models').Project;
+const Photos = require('../models').Photos
 
 module.exports = {
   create(req, res) {
     return Organization
       .create({
         Name: req.body.Name,
-        Parent: req.body._parent,
         Logo: req.body.Logo,
         Email: req.body.Email,
         ContactPerson: req.body.ContactPerson,
@@ -15,11 +16,10 @@ module.exports = {
         Background: req.body.Background,
         website: req.body.website,
         facebook: req.body.facebook,
-        FundingPartner: req.body.FundingPartner,
         City: req.body.City,
         Country: req.body.Country,
         Languages: req.body.Languages,
-        Causes: req.body.Causes,
+        PrimaryCause: req.body.PrimaryCause,
       })
       .then(organization => res.status(201).send(organization))
       .catch(error => {
@@ -28,17 +28,51 @@ module.exports = {
   },
 
   read(req, res) {
-    const usr = Object.assign({}, req.user.dataValues);
-    delete usr.Password;
-    res.json(usr);
+    return Organization
+      .findOne({where: {id: req.params.id}, 
+        include: [
+			  {
+			  	model: Project,
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate'],
+  	      include: [{
+    		    model: Photos,
+    		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+    		    limit: 1,
+    		    separate: true
+    		  }],
+			  }],
+      }).then(usr => {
+        delete usr.Password;
+        res.json(usr);
+      })
+
   },
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'Causes', 'Background', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'Country' ]})
     .then(list => res.json(list));
   },
-
+  
+  getOneFromAll(req, res) {
+    return Organization
+    .findOne({where: {id: req.params.id}, 
+      attributes: ['id', 'Name', 'Logo', 'PrimaryCause','Background', 'Country' ],
+      include: [
+			  {
+			  	model: Project,
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate'],
+  	      include: [{
+    		    model: Photos,
+    		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+    		    limit: 1,
+    		    separate: true
+    		  }],
+			  }],
+    })
+    .then(list => res.json(list));
+  },
+  
   update(req, res) {
     if (req.user.id !== req.params.id) return res.status(403).send("Unauthorized");
 

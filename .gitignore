@@ -13,3 +13,6 @@ node_modules
 
 # Coverage directory used by jest
 coverage
+
+#yarn
+yarn.lock

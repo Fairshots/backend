@@ -1,6 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
+const jwks = require('jwks-rsa');
 
 const Photographer = require('../src/models').Photographer;
 const Photos = require('../src/models').Photos;
@@ -17,7 +18,7 @@ module.exports = {
 	  opts,
 	  jwtStrategy: new JwtStrategy(opts, (payload, done) => {
 	  	 if (payload.usertype == 'photographer') {
-		    Photographer.findById(payload.id,
+		    Photographer.findByPk(payload.id,
 		    {
 			  include: [{
 			    model: Photos,
@@ -34,7 +35,7 @@ module.exports = {
 		    })
 		    .catch(err => done(err, null));
 	  	 } else if (payload.usertype == 'organization') {
-		    Organization.findById(payload.id,
+		    Organization.findByPk(payload.id,
 		    {
 			  include: [{
 			    model: Photos,
@@ -42,7 +43,7 @@ module.exports = {
 			  },
 			  {
 			  	model: Project,
-			  	attributes: [ 'id', 'Title']
+			  	attributes: [ 'id', 'Title', 'Description', 'ApplicationDate']
 			  }]
 			})
 		    .then(user => {
@@ -84,8 +85,31 @@ module.exports = {
 					  if (res) return done(null, photographer);
 					  return done(null, false, { message: 'Incorrect password.' });
 			      });
-		    });
-	  })
+		    }).catch(err => console.log("Not a photographer"));
+	  }),
+	  //thanks https://github.com/auth0/node-jwks-rsa/tree/master/examples/passport-demo
+	  auth0Check: new JwtStrategy({
+	      secretOrKeyProvider: jwks.passportJwtSecret({
+	      cache: true,
+	      rateLimit: true,
+	      jwksRequestsPerMinute: 5,
+	      jwksUri: 'https://curly-waterfall-1934.auth0.com/.well-known/jwks.json',
+	      handleSigningKeyError: (err, cb) => {
+	      	console.log(err)
+		    if (err instanceof jwks.SigningKeyNotFoundError) {
+		      return cb(new Error('This is bad'));
+		    }
+		
+		    return cb(err);
+		  }
+	    }),
+	    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	    audience: process.env.HOSTNAME,
+	    issuer: 'https://curly-waterfall-1934.auth0.com/',
+	    algorithms: ['RS256'] 
+	  	
+	  },  (payload, done) => {console.log(payload);done(null, payload)} )
+
 
 };
 

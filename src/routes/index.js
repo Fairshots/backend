@@ -3,12 +3,15 @@ const organization = require('../controllers').organizationController;
 const photos = require('../controllers').photosController;
 const project = require('../controllers').projectController;
 const featured = require('../controllers').featuredController;
+const mail = require('../controllers').mailController;
 const passport = require('passport');
 const auth = require('../../config/auth');
-const login = require('../controllers').loginController;
+const loginController = require('../controllers').loginController;
+const mailerService = require('../utilities/mailerService');
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
+passport.use('auth0', auth.auth0Check)
 /**
  * This mdule routes user requests to controllers according to http verbs and URLs requested
  *
@@ -25,12 +28,17 @@ module.exports = (app) => {
   app.post('/api/organization', organization.create);
 
   // Login route to get JWT token
-  app.post('/login', passport.authenticate('local', { session: false }), login);
+  app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
+  app.post('/login/forgot', loginController.passwordForgot);
+  app.post('/login/pwreset/:token', loginController.passwordReset)
+  app.get('/login/auth0', passport.authenticate('auth0', { session: false}), loginController.auth0)
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
   app.get('/api/photographer/all', photographer.getAll)
+  app.get('/api/photographer/all/:id', photographer.getOneFromAll)
   app.get('/api/organization/all', organization.getAll)
+  app.get('/api/organization/all/:id', organization.getOneFromAll)
 
 
   // photographer profile route with jwt check
@@ -48,12 +56,15 @@ module.exports = (app) => {
     .delete(organization.delete);
 
 //photos routes
-  app.route(['/api/photographer/:id/photos', '/api/organization/:id/photos'])
+  app.route(['/api/photographer/:id/photos', '/api/organization/:id/photos', '/api/project/:id/photos'])
     .all(passport.authenticate('jwt', { session: false }))
     .post(photos.bulkCreate)
     .delete(photos.delete);
 
 //projects routes
+
+  app.get('/api/project/all', project.getAll);
+
   app.post('/api/project', passport.authenticate('jwt', { session: false }), project.create);
   app.route('/api/project/:id')
     .all(passport.authenticate('jwt', { session: false }))
@@ -61,8 +72,20 @@ module.exports = (app) => {
     .put(project.update)
     .delete(project.delete)
     .post(project.applyTo) //route for photographer application
+/*
+  app.post('/api/mail', (req, res) => {
+    console.log(req.body);
+    mailerService.mailer({
+      from: 'Fairshots.org <noreply@fairshots.org>',
+      to: req.body.email,
+      subject: req.body.subject,
+      text: req.body.message
+    }).then((info) => res.send(info))
+    .catch((err) => res.status(400).send(err))
+  })
+*/
+//mail routes
+  app.post('/api/mail', passport.authenticate('jwt', { session: false }), mail.toUser); // just authenticated users can send messages to one another
+  app.post('/api/contactus', mail.contactUs)
+
 };
-
-
-
-
