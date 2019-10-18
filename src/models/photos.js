@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    cloudlink: DataTypes.STRING
+    cloudlink: DataTypes.STRING,
+    portfolioOrder: DataTypes.INTEGER
   }, {});
   Photos.associate = (models) => {
     // associations can be defined here

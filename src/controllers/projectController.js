@@ -38,7 +38,7 @@ module.exports = {
 
   read(req, res) {
     return Project
-    .findById(req.params.id,
+    .findByPk(req.params.id,
     {
 	  include: [{
 	    model: Organization,
@@ -80,8 +80,8 @@ module.exports = {
   },
   
   applyTo(req, res) {
-    return Photographer.findById(req.body.photographerId).then(photographer =>
-        Project.findById(req.params.id).then(
+    return Photographer.findByPk(req.body.photographerId).then(photographer =>
+        Project.findByPk(req.params.id).then(
           project => project.addPhotographer( photographer, { through: {
               answer1: req.body.answer1,
               answer2: req.body.answer2,

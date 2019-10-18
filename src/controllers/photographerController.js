@@ -20,10 +20,12 @@ module.exports = {
         Languages: req.body.Languages,
         Causes: req.body.Causes,
         City: req.body.City,
-        Country: req.body.Country
-      })
+        Country: req.body.Country,
+        Photos: req.body.Photos
+        }, { include: [ Photos ]})
       .then(result => res.status(201).send(result))
       .catch(error => {
+        console.log(error)
         res.status(500).send(error);
       });
   },
@@ -33,7 +35,7 @@ module.exports = {
       .findOne({where: {id: req.params.id}, 
         include: [{
   		    model: Photos,
-  		    attributes: [ 'id', 'cloudlink' ]
+  		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]
   		  }, 
   		  {
   		    model: Project,
@@ -66,7 +68,7 @@ module.exports = {
       attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
       include: [{
 		    model: Photos,
-		    attributes: [ 'id', 'cloudlink' ]
+		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]
 		  }],
     })
     .then(list => res.json(list));
