@@ -51,6 +51,7 @@ others - developer or temporary branches
 | apply to project (photographer)  |  /api/project/:id | POST  | Header Authorization: 'bearer token'   |
 | insert links of photos in project | /api/project/:id/photos  |  POST | Header Authorization: 'bearer token'   |
 | send email to another user (photographer or org) | /api/mail/ | POST |    | 
+
 ## Details on Request Params  
 
 All requests params may be sent as x-www-form-urlencoded or JSON in request body.  
@@ -729,3 +730,30 @@ Code 500 - Internal Server Error
   error object
 } 
 ````
+=======
+**/api/project/all*  
+**GET**  
+```javascript
+
+Authentication: 'bearer token'
+````
+Success:  
+Code 200 - created  
+content: object  
+Returning:  
+```javascript
+[{
+        Title,
+        Description,
+        ApplicationDate,
+        Country,
+        Cause,
+	[organization name & logo]
+	[1 Photo]
+}, ...]
+````
+Failure:  
+Code 401 - Unauthorized  
+Cause: invalid API Token  
+
+
