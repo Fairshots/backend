@@ -52,7 +52,7 @@ module.exports = {
     return Organization
     .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country' ]})
     .then(list => {
-      if (req.headers.authorization || req.headers.Authorization) { 
+      if (req.headers.authorization !== 'undefined') { 
         res.json(list); 
      } else { 
         list.map(l => {

@@ -60,8 +60,8 @@ module.exports = {
 		  }],
     })
     .then(list => {
-      console.log (req.headers)
-      if (req.headers.authorization || req.headers.Authorization) { 
+      console.log (req.headers.authorization)
+      if (req.headers.authorization !== 'undefined') { 
         res.json(list); 
      } else { 
         list.map(l => {
