@@ -53,13 +53,23 @@ module.exports = {
 
   getAll(req, res) {
     return Photographer
-    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'City', 'Country' ],
       include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'cloudlink' ]
 		  }],
     })
-    .then(list => res.json(list));
+    .then(list => {
+      console.log (req.headers)
+      if (req.headers.authorization || req.headers.Authorization) { 
+        res.json(list); 
+     } else { 
+        list.map(l => {
+          delete l.dataValues.City
+        })
+        res.json(list)
+      }
+    });
   },
   
   getOneFromAll(req, res) {

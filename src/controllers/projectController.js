@@ -100,7 +100,7 @@ module.exports = {
   
   getAll(req, res) {
     return Project
-    .findAll({ attributes: ['id', 'Title', 'Description', 'ApplicationDate', 'Cause', 'Country' ],
+    .findAll({ attributes: ['id', 'Title', 'Description', 'ApplicationDate', 'Cause', 'City', 'Country' ],
       include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'projectId', 'cloudlink' ],
@@ -112,7 +112,16 @@ module.exports = {
 	    attributes: [ 'Name', 'Logo' ]
 	    }]
     })
-    .then(list => res.json(list));
+    .then(list => {
+      if (req.headers.authorization || req.headers.Authorization) { 
+        res.json(list); 
+     } else { 
+        list.map(l => {
+          delete l.dataValues.City
+        })
+        res.json(list)
+      }
+    });
   },
 
 

@@ -50,8 +50,17 @@ module.exports = {
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'Country' ]})
-    .then(list => res.json(list));
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country' ]})
+    .then(list => {
+      if (req.headers.authorization || req.headers.Authorization) { 
+        res.json(list); 
+     } else { 
+        list.map(l => {
+          delete l.dataValues.City
+        })
+        res.json(list)
+      }
+    });
   },
   
   getOneFromAll(req, res) {

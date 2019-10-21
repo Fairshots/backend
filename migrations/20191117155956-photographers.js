@@ -7,7 +7,7 @@ const [photographers, photos] = worker();
 
 
 module.exports = {
-  up: (queryInterface, Sequelize) => 
+  up: async (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -18,10 +18,15 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    Promise.all([
-    queryInterface.bulkInsert('Photographers', photographers),
-    queryInterface.bulkInsert('Photos', photos),
-    ]).catch((err) => console.log(err))
+    try {
+    const result = await queryInterface.bulkInsert('Photographers', photographers)
+    return queryInterface.bulkInsert('Photos', photos)
+    }
+    catch(e) {
+      console.log(e)
+      return e
+    }
+  }
   ,
 
   down: (queryInterface, Sequelize) => 
