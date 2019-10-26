@@ -32,6 +32,9 @@ module.exports = {
       }
     );
     console.log(token);
+    req.user.lastLogin = new Date();
+    req.user.loginsCount = req.user.loginsCount +1;
+    req.user.save();
     res.json({
       message: 'Logged In.',
       userId: req.user.id,
