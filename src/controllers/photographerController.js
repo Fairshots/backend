@@ -2,6 +2,10 @@ const Photographer = require('../models').Photographer;
 const Photos = require('../models').Photos;
 const Project = require('../models').Project;
 const Application = require('../models').Application;
+const Sequelize = require('sequelize');
+
+const Op = Sequelize.Op;
+
 
 module.exports = {
   create(req, res) {
@@ -53,7 +57,8 @@ module.exports = {
 
   getAll(req, res) {
     return Photographer
-    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'City', 'Country' ],
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'City', 'Country', 'featured' ],
+      where: { accountInactive: {[Op.or]: [null, false] } },
       include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'cloudlink' ]
@@ -74,8 +79,8 @@ module.exports = {
   
   getOneFromAll(req, res) {
     return Photographer
-    .findOne({where: {id: req.params.id}, 
-      attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country' ],
+    .findOne({where: {id: req.params.id, accountInactive: {[Op.or]: [null, false] }}, 
+      attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'Country', 'featured' ],
       include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]

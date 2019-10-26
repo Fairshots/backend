@@ -57,6 +57,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    featured: {
+      type: DataTypes.BOOLEAN
+    },
+    lastLogin: {
+      type: DataTypes.DATE
+    },
+    emailVerified: {
+      type: DataTypes.BOOLEAN
+    },
+    loginsCount: {
+      type: DataTypes.INTEGER
+    },
+    accountInactive: {
+      type: DataTypes.BOOLEAN
+    }
+    
   });
   Organization.associate = (models) => {
     Organization.hasMany(models.Project, {foreignKey: 'organizationId'});
