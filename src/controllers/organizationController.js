@@ -1,6 +1,10 @@
 const Organization = require('../models').Organization;
 const Project = require('../models').Project;
 const Photos = require('../models').Photos
+const Sequelize = require('sequelize');
+
+const Op = Sequelize.Op;
+
 
 module.exports = {
   create(req, res) {
@@ -50,7 +54,10 @@ module.exports = {
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country' ]})
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country', 'featured'],
+    where: { accountInactive: {[Op.or]: [null, false] } },
+      
+    })
     .then(list => {
       if (req.headers.authorization !== 'undefined') { 
         res.json(list); 
@@ -65,8 +72,8 @@ module.exports = {
   
   getOneFromAll(req, res) {
     return Organization
-    .findOne({where: {id: req.params.id}, 
-      attributes: ['id', 'Name', 'Logo', 'PrimaryCause','Background', 'Country' ],
+    .findOne({where: {id: req.params.id, accountInactive: {[Op.or]: [null, false] }}, 
+      attributes: ['id', 'Name', 'Logo', 'PrimaryCause','Background', 'Country', 'featured' ],
       include: [
 			  {
 			  	model: Project,

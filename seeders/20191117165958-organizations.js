@@ -1,8 +1,8 @@
 'use strict';
 
-const worker = require('../seeders/worker');
+const worker = require('../seeders/orgworker');
 
-const [photographers, photos] = worker();
+const orgs = worker();
 
 
 
@@ -19,8 +19,7 @@ module.exports = {
       }], {});
     */
     try {
-    const result = await queryInterface.bulkInsert('Photographers', photographers)
-    return queryInterface.bulkInsert('Photos', photos)
+    const result = await queryInterface.bulkInsert('Organizations', orgs)
     }
     catch(e) {
       console.log(e)
@@ -37,5 +36,5 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-  queryInterface.bulkDelete('Photographers', null, {})
+  queryInterface.bulkDelete('Organizations', null, {})
 };
