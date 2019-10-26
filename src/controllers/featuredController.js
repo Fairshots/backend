@@ -19,7 +19,7 @@ module.exports = {
 
 	let compilation = {};
 	Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country' ],
-		  where: { featured: true, accountInactive: {[Op.or]: [null, false] } },
+		  where: { accountInactive: {[Op.or]: [null, false] } },
 		  include: [{
 		    model: Photos,
 		    attributes: [ 'id', 'cloudlink' ]
@@ -28,13 +28,14 @@ module.exports = {
 		
     .then(photList => {
     	compilation.numPhotographers = photList.length;
-		shuffle(photList);
-    	return Object.assign(compilation, {photographers: photList.slice(0,2)})
+    	let photListFeatured = photList.filter(e => e.featured)
+		shuffle(photListFeatured);
+    	return Object.assign(compilation, {photographers: photList.slice(0,3)})
     }	
     )
     .then(() => 
 	    Organization.findAll({ attributes: ['id', 'Name', 'Background', 'PrimaryCause', 'Logo', 'Country' ], 
-	    where: { featured: true, accountInactive: {[Op.or]: [null, false] } },
+	    where: { accountInactive: {[Op.or]: [null, false] } },
 	    }))
     .then(orgList => {
     	compilation.numOrgs = orgList.length;
