@@ -40,7 +40,7 @@ module.exports = {
     .then(orgList => {
     	compilation.numOrgs = orgList.length;
     	shuffle(orgList);
-    	return Object.assign(compilation, {organizations: orgList.slice(0,2)})
+    	return Object.assign(compilation, {organizations: orgList.slice(0,3)})
     })
      .then(() => 
 	    Organization.findAll({ attributes: ['City', 'Country'], 
