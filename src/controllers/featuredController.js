@@ -30,7 +30,7 @@ module.exports = {
     	compilation.numPhotographers = photList.length;
     	let photListFeatured = photList.filter(e => e.featured)
 		shuffle(photListFeatured);
-    	return Object.assign(compilation, {photographers: photList.slice(0,3)})
+    	return Object.assign(compilation, {photographers: photListFeatured.slice(0,3)})
     }	
     )
     .then(() => 
