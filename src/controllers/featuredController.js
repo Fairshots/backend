@@ -18,7 +18,7 @@ module.exports = {
 	compile(req, res) {
 
 	let compilation = {};
-	Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country' ],
+	Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country', 'featured' ],
 		  where: { accountInactive: {[Op.or]: [null, false] } },
 		  include: [{
 		    model: Photos,
@@ -34,13 +34,14 @@ module.exports = {
     }	
     )
     .then(() => 
-	    Organization.findAll({ attributes: ['id', 'Name', 'Background', 'PrimaryCause', 'Logo', 'Country' ], 
+	    Organization.findAll({ attributes: ['id', 'Name', 'Background', 'PrimaryCause', 'Logo', 'Country', 'featured' ], 
 	    where: { accountInactive: {[Op.or]: [null, false] } },
 	    }))
     .then(orgList => {
     	compilation.numOrgs = orgList.length;
-    	shuffle(orgList);
-    	return Object.assign(compilation, {organizations: orgList.slice(0,3)})
+    	let orgListFeatured = orgList.filter(e => e.featured)
+    	shuffle(orgListFeatured);
+    	return Object.assign(compilation, {organizations: orgListFeatured.slice(0,3)})
     })
      .then(() => 
 	    Organization.findAll({ attributes: ['City', 'Country'], 
