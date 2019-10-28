@@ -50,6 +50,31 @@ module.exports = {
       });
 
 
+  },
+  
+    confirmEmail: (user, type, host) => {
+  	 const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          usertype: type
+        },
+        auth.opts.secretOrKey,
+        {
+          issuer: user.id.toString(),
+          expiresIn: '24h'
+        }
+      );
+
+      return module.exports.mailer({
+        from: 'Fairshots.org <noreply@fairshots.org>',
+        to: user.Email,
+        subject: 'Fairshots Email Confirmation',
+        text: `Please click on the following link to confirm your e-mail. The link is valid for twenty-four hours:\n\n` +
+        `${host}/${type}/emailconfirm/${token.replace(/\./g,"&")}`
+      });
+
+
   }
 }
 

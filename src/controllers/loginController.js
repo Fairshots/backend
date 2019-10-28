@@ -19,6 +19,11 @@ module.exports = {
  */
   login(req, res) {
   //console.log(req.user);
+  
+    if (!req.user.emailVerified) {
+      res.status(401).send("Your e-mail has not been verified. Please confirm it to continue.\nIf you didn't receive any email please get in touch: contact@fairshots.org")
+      return;
+    }
     const token = jwt.sign(
       {
         id: req.user.id,
@@ -82,7 +87,7 @@ module.exports = {
       }
       //console.log(req.headers)
 
-      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.origin || 'fairshots.org')
+      mailerService.passwordForgotMail(photographer, 'photographer', req.headers.origin || 'fairshots.org')
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
@@ -111,6 +116,30 @@ module.exports = {
       User[decoded.usertype]
         .update(req.body, { where: { id:decoded.id }, fields: ['Password'], individualHooks: true })
         .then(result => res.json({msg: "Password was successfully reset"}))
+        .catch(error => {
+          res.status(500).send(error);
+      });
+
+
+    });
+
+
+
+  },
+  
+  confirmEmail(req, res) {
+
+    jwt.verify(req.params.token, auth.opts.secretOrKey, (err, decoded) => {
+      if (err) {
+        res.status(401).send("Invalid Token");
+        return;
+      }
+
+      console.log(decoded);
+
+      User[decoded.usertype]
+        .update({emailVerified: true}, { where: { id:decoded.id }, fields: ['emailVerified'], individualHooks: true })
+        .then(result => res.json({msg: "Email confirmed successfully"}))
         .catch(error => {
           res.status(500).send(error);
       });

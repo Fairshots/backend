@@ -27,11 +27,13 @@ module.exports = (app) => {
   app.post('/api/photographer', photographer.create);
   app.post('/api/organization', organization.create);
 
+
   // Login route to get JWT token
   app.post('/login', passport.authenticate('local', { session: false }), loginController.login);
   app.post('/login/forgot', loginController.passwordForgot);
   app.post('/login/pwreset/:token', loginController.passwordReset)
   app.get('/login/auth0', passport.authenticate('auth0', { session: false}), loginController.auth0)
+  app.post('/login/emailconfirm/:token', loginController.confirmEmail)
 
   // open access routes to feed general page
   app.get('/api/featured', featured.compile)
