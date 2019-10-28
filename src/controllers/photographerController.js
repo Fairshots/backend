@@ -2,7 +2,10 @@ const Photographer = require('../models').Photographer;
 const Photos = require('../models').Photos;
 const Project = require('../models').Project;
 const Application = require('../models').Application;
+const mailerService = require('../utilities/mailerService');
 const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
+const auth = require('../../config/auth');
 
 const Op = Sequelize.Op;
 
@@ -27,12 +30,19 @@ module.exports = {
         Country: req.body.Country,
         Photos: req.body.Photos
         }, { include: [ Photos ]})
-      .then(result => res.status(201).send(result))
+      .then(result => {
+        mailerService.confirmEmail(result, 'Photographer', req.headers.origin || 'fairshots.org')
+      .then(() => res.status(201).send(result))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send(err)});
+      })
       .catch(error => {
         console.log(error)
         res.status(500).send(error);
       });
   },
+  
 
   read(req, res) {
     return Photographer
