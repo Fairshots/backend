@@ -87,7 +87,7 @@ module.exports = {
       }
       //console.log(req.headers)
 
-      mailerService.passwordForgotMail(photographer, 'photographer', req.headers.origin || 'fairshots.org')
+      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.origin || 'fairshots.org')
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
