@@ -8,10 +8,12 @@ const passport = require('passport');
 const auth = require('../../config/auth');
 const loginController = require('../controllers').loginController;
 const mailerService = require('../utilities/mailerService');
+const admin = require('./admin');
 
 passport.use('local', auth.localStrategy);
 passport.use('jwt', auth.jwtStrategy);
-passport.use('auth0', auth.auth0Check)
+passport.use('auth0', auth.auth0Check);
+passport.use('jwtad', auth.jwtad);
 /**
  * This mdule routes user requests to controllers according to http verbs and URLs requested
  *
@@ -89,5 +91,7 @@ module.exports = (app) => {
 //mail routes
   app.post('/api/mail', passport.authenticate('jwt', { session: false }), mail.toUser); // just authenticated users can send messages to one another
   app.post('/api/contactus', mail.contactUs)
+  
+  admin(app, passport);
 
 };
