@@ -3,7 +3,7 @@ const auth = require('../../config/auth');
 const Photographer = require('../models').Photographer;
 const Organization = require('../models').Organization;
 const mailerService = require('../utilities/mailerService');
-
+const Admin = require('../models').Admin;
 const User = {Photographer, Organization};
 /**
  * This module is a middleware responsible for managing all requests related to login
@@ -24,29 +24,32 @@ module.exports = {
       res.status(401).send("Your e-mail has not been verified. Please confirm it to continue.\nIf you didn't receive any email please get in touch: contact@fairshots.org")
       return;
     }
-    const token = jwt.sign(
-      {
-        id: req.user.id,
-        email: req.user.email,
-        usertype: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization'
-      },
-      auth.opts.secretOrKey,
-      {
-        issuer: req.user.id.toString(),
-        expiresIn: '1h'
-      }
-    );
-    console.log(token);
-    req.user.lastLogin = new Date();
-    req.user.loginsCount = req.user.loginsCount +1;
-    req.user.save();
-    res.json({
-      message: 'Logged In.',
-      userId: req.user.id,
-      userName: req.user.Name,
-      userType: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization',
-      token
-    });
+    
+
+      const token = jwt.sign(
+        {
+          id: req.user.id,
+          email: req.user.email,
+          usertype: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization', 
+          ...(req.user.admin ? {admin: true} : {} )
+        },
+        auth.opts.secretOrKey,
+        {
+          issuer: req.user.id.toString(),
+          expiresIn: '1h'
+        }
+      );
+      console.log(token);
+      req.user.lastLogin = new Date();
+      req.user.loginsCount = req.user.loginsCount +1;
+      req.user.save();
+      res.json({
+        message: 'Logged In.',
+        userId: req.user.id,
+        userName: req.user.Name,
+        userType: req.user.dataValues.hasOwnProperty('Skill') ? 'photographer' : 'organization',
+        token
+      });
   },
   
   auth0(req, res) {
@@ -87,7 +90,7 @@ module.exports = {
       }
       //console.log(req.headers)
 
-      mailerService.passwordForgotMail(photographer, 'photographer', req.headers.origin || 'fairshots.org')
+      mailerService.passwordForgotMail(photographer, 'Photographer', req.headers.origin || 'fairshots.org')
         .then((info) => res.send(info))
         .catch((err) => res.status(400).send(err));
 
@@ -150,6 +153,18 @@ module.exports = {
 
 
   },
+  
+  admlogin(req, res) {
+      Admin.findOne({ where: { id: req.user.id } }).then(adm =>  {
+        if (!adm) res.status(401);
+        
+        else {
+          req.user.admin = true;
+          module.exports.login(req, res);
+          
+        }
+      })
+  }
 
 };
 
