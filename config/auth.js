@@ -108,7 +108,31 @@ module.exports = {
 	    issuer: 'https://curly-waterfall-1934.auth0.com/',
 	    algorithms: ['RS256'] 
 	  	
-	  },  (payload, done) => {console.log(payload);done(null, payload)} )
+	  },  (payload, done) => {console.log(payload);done(null, payload)} ),
+	  
+	 jwtad: new JwtStrategy(opts, (payload, done) => {
+	  	 if (!payload.admin) {
+	  	 	return done(null, false);
+	  	 }
+	  	 
+		 Photographer.findByPk(payload.id,
+		    {
+			  include: [{
+			    model: Photos,
+			    attributes: [ 'id', 'cloudlink' ]
+			  }]
+			})
+		    .then(user => {
+		    	// console.log(user);
+
+		        if (user) {
+		            return done(null, user);
+		        }
+		            return done(null, false);
+		    })
+		    .catch(err => done(err, null));
+	  	
+	  }),
 
 
 };
