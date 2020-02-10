@@ -14,15 +14,16 @@ Node | Express | PostgreSQL | Sequelize | Passport.Js
 ## Roadmap for Backend 
 [Link](https://github.com/Fairshots/backend/blob/master/roadmap.md)
 
+[Project Progress](https://github.com/orgs/Fairshots/projects/1)  
 
 ## Repository Branches 
 
-Development - contains experimental code under test - (PULL REQUESTS MUST BE DONE HERE).   
+Development - contains staging code under test - (PULL REQUESTS MUST BE DONE HERE).   
 Master - contains the code deployed to production server  
 others - developer or temporary branches  
 
 ## How to contribute
-[Please follow these steps to contribute](https://github.com/Fairshots/backend/blob/master/CONTRIBUTING.md)
+[Please follow these steps to contribute - installation instructions included](https://github.com/Fairshots/backend/blob/master/CONTRIBUTING.md)
 
 ## API Documentation
 
