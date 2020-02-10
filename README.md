@@ -11,8 +11,7 @@ To view Frontend Repo please go to [https://github.com/Fairshots/Fairshots.org](
 ## Stack: 
 Node | Express | PostgreSQL | Sequelize | Passport.Js
 
-## Roadmap for Backend 
-[Link](https://github.com/Fairshots/backend/blob/master/roadmap.md)
+## Roadmap for Backend, Frontend and Admin Panel
 
 [Project Progress](https://github.com/orgs/Fairshots/projects/1)  
 
