@@ -25,5 +25,13 @@ module.exports = {
         }
       });
 
+  },
+
+  update(req,res) {
+    for (var item in req.body)
+    {
+      console.log(item);
+    }
+    res.status(201).send("");
   }
 };
