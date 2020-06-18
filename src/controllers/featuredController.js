@@ -27,6 +27,7 @@ module.exports = {
 		})
 		
     .then(photList => {
+    	console.log(photList)
     	compilation.numPhotographers = photList.length;
     	let photListFeatured = photList.filter(e => e.featured)
 		shuffle(photListFeatured);
@@ -38,6 +39,7 @@ module.exports = {
 	    where: { accountInactive: {[Op.or]: [null, false] } },
 	    }))
     .then(orgList => {
+    	console.log(orgList)
     	compilation.numOrgs = orgList.length;
     	let orgListFeatured = orgList.filter(e => e.featured)
     	shuffle(orgListFeatured);

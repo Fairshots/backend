@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
+const router = require('./src/routes');
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(passport.initialize());
 
-require('./src/routes')(app);
+router(app);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Fairshots backend.'
