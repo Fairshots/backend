@@ -19,7 +19,7 @@ module.exports = {
     host: 'ec2-23-23-142-5.compute-1.amazonaws.com',
     port: 5432,
     dialect: 'postgres',
-    logging: true,
+    logging: console.log,
     ssl: true,
     dialectOptions: {
       ssl: true
