@@ -57,7 +57,8 @@ module.exports = {
 	    })
      )
      .then(PhotogCities => Object.assign(compilation, {photogCities: [...PhotogCities]}))
-     .then(featured => res.json(featured));
+     .then(featured => res.json(featured))
+     .catch(err => console.log(err));
 
 	}
 
