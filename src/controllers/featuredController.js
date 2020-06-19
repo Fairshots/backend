@@ -16,7 +16,6 @@ function shuffle(a) {
 
 module.exports = {
 	compile(req, res) {
-
 	let compilation = {};
 	Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country', 'featured' ],
 		  where: { accountInactive: {[Op.or]: [null, false] } },
@@ -27,7 +26,6 @@ module.exports = {
 		})
 		
     .then(photList => {
-    	console.log(photList)
     	compilation.numPhotographers = photList.length;
     	let photListFeatured = photList.filter(e => e.featured)
 		shuffle(photListFeatured);
@@ -39,7 +37,6 @@ module.exports = {
 	    where: { accountInactive: {[Op.or]: [null, false] } },
 	    }))
     .then(orgList => {
-    	console.log(orgList)
     	compilation.numOrgs = orgList.length;
     	let orgListFeatured = orgList.filter(e => e.featured)
     	shuffle(orgListFeatured);
@@ -57,7 +54,8 @@ module.exports = {
 	    })
      )
      .then(PhotogCities => Object.assign(compilation, {photogCities: [...PhotogCities]}))
-     .then(featured => res.json(featured));
+     .then(featured => res.json(featured))
+     .catch(err => console.log(err));
 
 	}
 

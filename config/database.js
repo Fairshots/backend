@@ -8,7 +8,11 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+      },
     }
 
   },
@@ -22,7 +26,11 @@ module.exports = {
     logging: console.log,
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+      },
     }
 
   },
@@ -31,7 +39,11 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+        },
     }
   }
 };
