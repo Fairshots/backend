@@ -54,7 +54,7 @@ module.exports = {
 
   getAll(req, res) {
     return Organization
-    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country', 'featured'],
+    .findAll({ attributes: ['id', 'Name', 'Logo', 'PrimaryCause', 'Background', 'City', 'Country', 'featured', 'Languages', 'PrimaryCause'],
     where: { accountInactive: {[Op.or]: [null, false] } },
       
     })
