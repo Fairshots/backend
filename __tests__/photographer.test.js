@@ -63,12 +63,13 @@ describe('Test the photographer API', () => {
   test('photo ordering index updates ok', (done) => {
     request(app).put(`/api/photographer/${id}/orderphotos`)
     .set('Authorization', `bearer ${token}`)
-    .send({
-      Biography: "testing if it can be updated"
-    }) //ensure user is registered before this test
+    .send(
+      [{id:-1, cloudlink:"", portfolioOrder:1},
+      {id:-2, cloudlink:" ", portfolioOrder:2}]
+    ) //ensure user is registered before this test
     .set('Content-Type', 'application/json')
     .then((res) => {
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(200);
       done();
     });
   });

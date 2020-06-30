@@ -26,11 +26,9 @@ module.exports = {
   },
 
   update(req, res) {
-    Promise.all(req.body.map((key, _) =>{return Photos.update(
-         {portfolioOrder: key.order },
-        { where: { id: key.id }, fields: ['portfolioOrder'], }
-      );})).then(result => res.status(200).send(result)).catch(
-        err => res.status(501).send(err)
-      );
+    Promise.all(req.body.map((key, _) => Photos.update(
+      { portfolioOrder: key.order },
+      { where: { id: key.id }, fields: ['portfolioOrder'], }
+    ))).then(result => res.status(200).send(result)).catch(err => res.status(501).send(err));
   }
 };
