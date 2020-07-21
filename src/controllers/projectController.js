@@ -53,7 +53,7 @@ module.exports = {
 	  },
 	  {
 		    model: Photos,
-		    attributes: [ 'id', 'cloudlink' ]
+		    attributes: [ 'id', 'cloudlink', 'portfolioOrder' ]
 		 }
 	  ]
 	})
@@ -103,7 +103,7 @@ module.exports = {
     .findAll({ attributes: ['id', 'Title', 'Description', 'ApplicationDate', 'Cause', 'City', 'Country' ],
       include: [{
 		    model: Photos,
-		    attributes: [ 'id', 'projectId', 'cloudlink' ],
+		    attributes: [ 'id', 'projectId', 'cloudlink', 'portfolioOrder' ],
 		    limit: 1,
 		    separate: true
 		  },
