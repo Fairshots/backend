@@ -65,6 +65,9 @@ module.exports = (app) => {
     .post(photos.bulkCreate)
     .delete(photos.delete);
 
+  app.route(['/api/photographer/:id/orderphotos', '/api/organization/:id/orderphotos', '/api/project/:id/orderphotos'])
+    .all(passport.authenticate('jwt', { session: false }))
+    .put(photos.update);
 //projects routes
 
   app.get('/api/project/all', project.getAll);

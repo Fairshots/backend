@@ -60,6 +60,19 @@ describe('Test the photographer API', () => {
     });
   });
 
+  test('photo ordering index updates ok', (done) => {
+    request(app).put(`/api/photographer/${id}/orderphotos`)
+    .set('Authorization', `bearer ${token}`)
+    .send(
+      [{id:-1, cloudlink:"", portfolioOrder:1},
+      {id:-2, cloudlink:" ", portfolioOrder:2}]
+    ) //ensure user is registered before this test
+    .set('Content-Type', 'application/json')
+    .then((res) => {
+      expect(res.statusCode).toBe(200);
+      done();
+    });
+  });
   test('dont update to invalid or keep blank required fields', (done) => {
     request(app).put(`/api/photographer/${id}`)
     .set('Authorization', `bearer ${token}`)
