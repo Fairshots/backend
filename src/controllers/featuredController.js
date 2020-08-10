@@ -16,7 +16,6 @@ function shuffle(a) {
 
 module.exports = {
 	compile(req, res) {
-
 	let compilation = {};
 	Photographer.findAll({ attributes: ['id', 'Name', 'Skill', 'Biography', 'ProfilePic', 'Country', 'featured' ],
 		  where: { accountInactive: {[Op.or]: [null, false] } },
@@ -55,7 +54,8 @@ module.exports = {
 	    })
      )
      .then(PhotogCities => Object.assign(compilation, {photogCities: [...PhotogCities]}))
-     .then(featured => res.json(featured));
+     .then(featured => res.json(featured))
+     .catch(err => console.log(err));
 
 	}
 

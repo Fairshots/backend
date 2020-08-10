@@ -67,7 +67,7 @@ module.exports = {
 
   getAll(req, res) {
     return Photographer
-    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'City', 'Country', 'featured' ],
+    .findAll({ attributes: ['id', 'Name', 'Skill', 'Biography','ProfilePic', 'City', 'Country', 'featured', 'Languages', 'Causes' ],
       where: { accountInactive: {[Op.or]: [null, false] } },
       include: [{
 		    model: Photos,

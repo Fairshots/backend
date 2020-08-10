@@ -8,7 +8,11 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+      },
     }
 
   },
@@ -19,10 +23,14 @@ module.exports = {
     host: 'ec2-23-23-142-5.compute-1.amazonaws.com',
     port: 5432,
     dialect: 'postgres',
-    logging: true,
+    logging: console.log,
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+      },
     }
 
   },
@@ -31,7 +39,11 @@ module.exports = {
     dialect: 'postgres',
     ssl: true,
     dialectOptions: {
-      ssl: true
+      ssl: {
+          require: true,
+          // Ref.: https://github.com/brianc/node-postgres/issues/2009
+          rejectUnauthorized: false,
+        },
     }
   }
 };
